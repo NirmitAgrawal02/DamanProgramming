@@ -1,0 +1,65 @@
+﻿Project Group - 41
+
+
+1. Nirmit Agrawal
+   Contributions for MileStone 1 
+1. Set Up Github Repository for the project
+2. Worked on developing grammar for for loop
+3. Worked on developing grammar for operators 
+
+
+            Plan for Milestone 2
+1. Will work on developing for loops for Parser and Evaluator
+2. Will Work on developing operators for Parser and Evaluator
+3. Will work on developing Data Type for Parser and Evaluator
+
+
+2. Alok Rajpurohit
+  Contributions for MileStone 1 
+   1. Worked on developing grammar for Numbers and Characters 
+   2. Worked on developing contributions.txt
+   3. Worked on developing pdf document
+
+
+            Plan for Milestone 2
+1. Will work on implementing integers and strings for Parser and Evaluator
+2. Will work on implementing block for parser and evaluator
+3. Will work on developing Final PPT and video documentation
+           
+
+
+3. Akshat Bakliwal
+  Contributions for MileStone 1 
+   4. Worked on developing grammar for while loop
+   5. Worked on developing if-then-else grammar
+   6. Worked on developing grammar for operators
+ 
+  Plan for Milestone 2
+1. Will work on developing while loops for Parser and Evaluator
+2. Will Work on developing if-then-else for Parser and Evaluator
+3. Will work on developing operator for Parser and Evaluator
+
+
+4. Manasi Anantpurkar
+  Contributions for MileStone 1 
+   7. Worked on developing grammar for identifiers
+   8. Worked on developing pdf document
+   9. Worked on developing Data Types
+
+
+           Plan for Milestone 2
+1. Will work on developing identifiers for Parser and Evaluator
+2. Will Work on developing block for Parser and Evaluator
+3. Will work on developing Final PPT and video documentation
+
+
+5. Drashti Patel
+Contributions for MileStone 1 
+   10. Worked on developing the grammar for the ternary operator
+   11. Worked on developing grammar for print
+   12. Worked on developing Data Types
+        
+         Plan for Milestone 2
+1. Will work on developing ternary operator for Parser and Evaluator
+2. Will Work on developing print for Parser and Evaluator
+3. Will work on developing data types for Parser and Evaluator
