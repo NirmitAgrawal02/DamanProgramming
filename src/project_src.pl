@@ -35,47 +35,112 @@ new_command(t_ncmd(Tbe,['?'],Tcmd,[':'],Tcmd1)) --> be(Tbe),['?'],command(Tcmd),
 new_command(t_ncmd(['print'],['('],Texp,[')'])) --> ['print'],['('],exp(Texp),[')'].
 
 % EXP ::= AE;EXP | BE;EXP | STRING; EXP | N ; EXP | I; EXP|AE | BE | STRING | N | I 
-exp-->ae,[';'],exp | be,[';'],exp | str,[';'],exp | num,[';'],exp | identifier,[';'],exp | ae | be | str | num | identifier.
+exp(t_exp(AE,[';'],Exp))--> ae(AE),[';'],exp(Exp).
+exp(t_exp(BE,[';'],Exp))--> be(BE),[';'],exp(Exp).
+exp(t_exp(Str,[';'],Exp))--> str(Str),[';'],exp(Exp).
+exp(t_exp(Num,[';'],Exp))--> num(Num),[';'],exp(Exp).
+exp(t_exp(ID,[';'],Exp))--> identifier(ID),[';'],exp(Exp).
+exp(t_exp(AE))--> ae(AE).
+exp(t_exp(BE))--> be(BE).
+exp(t_exp(Str))--> str(Str).
+exp(t_exp(Num))--> num(Num).
+exp(t_exp(ID))--> identifier(ID).
 
 % STRING ::= “TEMP”
-str-->['"'],temp,['"'].
+str(t_str(['"'],Temp,['"']))-->['"'],temp(Temp),['"'].
 
 % TEMP ::= CH TEMP | N TEMP | CH | N
-temp-->ch,temp | num,temp | ch | num.
+temp(t_temp(CH,Temp))--> ch(CH),temp(Temp).
+temp(t_temp(Num,Temp))--> num(Num),temp(Temp).
+temp(t_temp(CH))--> ch(CH).
+temp(t_temp(Num))--> num(Num).
 
 % BE ::= SUB and BE | SUB or BE | SUB
-be-->sub,['and'],be | sub,['or'],be | sub.
+be(t_be(Sub,['and'],BE))--> sub(Sub),['and'],be(BE).
+be(t_be(Sub,['or'],BE))--> sub(Sub),['or'],be(BE).
+be(t_be(Sub))--> sub(Sub).
 
 % SUB ::= AE==AE | AE>AE | AE<AE | AE>= AE | AE<=AE | AE!= AE | not SUB | BOOL_VAL 
-sub-->ae,['=='],ae | ae,['>'],ae | ae,['<'],ae | ae,['>='],ae | ae,['<='],ae | ae,['!='],ae | ['not'],sub | bool_val.
+sub(t_sub(AE1,['=='],AE2))--> ae(AE1),['=='],ae(AE2).
+sub(t_sub(AE1,['>'],AE2))--> ae(AE1),['>'],ae(AE2).
+sub(t_sub(AE1,['<'],AE2))--> ae(AE1),['<'],ae(AE2).
+sub(t_sub(AE1,['>='],AE2))--> ae(AE1),['>='],ae(AE2).
+sub(t_sub(AE1,['<='],AE2))--> ae(AE1),['<='],ae(AE2).
+sub(t_sub(AE1,['!='],AE2))--> ae(AE1),['!='],ae(AE2).
+sub(t_sub(['not'],Sub))--> ['not'],sub(Sub).
+sub(t_sub(Bool))--> bool_val(Bool).
 
 % BOOL_VAL ::= true|false 
-bool_val-->['true'] | ['false'].
+bool_val(t_boolval(['true']))--> ['true'].
+bool_val(t_boolval(['false']))--> ['false'].
 
 % AE ::= I:=T|T
-ae-->identifier,[':='],t | t.
+ae(t_ae(ID,[':='],T))--> identifier(ID),[':='],t(T).
+ae(t_ae(T))--> t.
 
 
 % T::=T + T2 | T – T2 | T2
-t-->t,'+',t2 | t,['-'],t2 | t2.
+t(t_term(T,['+'],T2))--> t(T),'+',t2(T2).
+t(t_term(T,['-'],T2))--> t(T),['-'],t2(T2).
+t(t_term(T2))--> t2(T2).
 
 % T2::= T2 * T3 | T2 / T3 | T3
-t2-->t2,['*'],t3 | t2,['/'],t3 | t3.
+t2(t_t2(T2,['*'],T3))--> t2(T2),['*'],t3(T3).
+t2(t_t2(T2,['/'],T3))--> t2(T2),['/'],t3(T3).
+t2(t_t2(T3))--> t3(T3).
 
 % T3 ::= (AE)| I |N
-t3-->['('],ae,[')'] | identifier | num.
+t3(t_t3(['('],AE,[')']))--> ['('],ae(AE),[')'].
+t3(t_t3(ID))--> identifier(ID).
+t3(t_t3(Num))--> num(Num).
 
 % I ::= CH I | CH
-identifier-->ch,identifier | ch.
+identifier(t_id(CH,ID))--> ch(CH),identifier(ID).
+identifier(t_id(CH))--> ch(CH).
 
 % CH ::= a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z
-ch-->['a'] | ['b'] | ['c'] | ['d'] | ['e'] | ['f'] | ['g'] | ['h'] | ['i'] | ['j'] | ['k'] | ['l'] | ['m'] | ['n'] | ['o'] | ['p'] | ['q'] | ['r'] | ['s'] | ['t'] | ['u'] | ['v'] | ['w'] | ['x'] | ['y'] | ['z'].
+ch(t_ch(['a']))--> ['a'].
+ch(t_ch(['b']))--> ['b'].
+ch(t_ch(['c']))--> ['c'].
+ch(t_ch(['d']))--> ['d'].
+ch(t_ch(['e']))--> ['e'].
+ch(t_ch(['f']))--> ['f'].
+ch(t_ch(['g']))--> ['g'].
+ch(t_ch(['h']))--> ['h'].
+ch(t_ch(['i']))--> ['i'].
+ch(t_ch(['j']))--> ['j'].
+ch(t_ch(['k']))--> ['k'].
+ch(t_ch(['l']))--> ['l'].
+ch(t_ch(['m']))--> ['m'].
+ch(t_ch(['n']))--> ['n'].
+ch(t_ch(['o']))--> ['o'].
+ch(t_ch(['p']))--> ['p'].
+ch(t_ch(['q']))--> ['q'].
+ch(t_ch(['r']))--> ['r'].
+ch(t_ch(['s']))--> ['s'].
+ch(t_ch(['t']))--> ['t'].
+ch(t_ch(['u']))--> ['u'].
+ch(t_ch(['v']))--> ['v'].
+ch(t_ch(['w']))--> ['w'].
+ch(t_ch(['x']))--> ['x'].
+ch(t_ch(['y']))--> ['y'].
+ch(t_ch(['z']))--> ['z'].
 
 % N := DIG N | DIG
-num--> dig,num | dig.
+num(t_num(Dig,Num))--> dig(Dig),num(Num).
+num(t_num(Dig))--> dig.
 
 %DIG := 0|1|2|3|4|5|6|7|8|9
-dig-->['0'] | ['1'] | ['2'] | ['3'] | ['4'] | ['5'] | ['6'] | ['7'] | ['8'] | ['9'].
+dig(t_dig(['0']))--> ['0'].
+dig(t_dig(['1']))--> ['1'].
+dig(t_dig(['2']))--> ['2'].
+dig(t_dig(['3']))--> ['3'].
+dig(t_dig(['4']))--> ['4'].
+dig(t_dig(['5']))--> ['5'].
+dig(t_dig(['6']))--> ['6'].
+dig(t_dig(['7']))--> ['7'].
+dig(t_dig(['8']))--> ['8'].
+dig(t_dig(['9']))--> ['9'].
 
 
 
