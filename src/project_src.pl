@@ -2,8 +2,8 @@
 
 program(t_p(Tb)) --> block(Tb),['.'].
 block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
-declaration(t_decl(A,D)) --> ass_variable(A) [';']declaration(D).
-declaration(t_decl(A,D)) --> decl_variable(A) [';'] declaration(D).
+declaration(t_decl(A,D)) --> ass_variable(A),[';'],declaration(D).
+declaration(t_decl(A,D)) --> decl_variable(A),[';'],declaration(D).
 declaration(t_decl(A)) --> ass_variable(A).
 declaration(t_decl(A)) --> decl_variable(A).
 
@@ -28,7 +28,7 @@ command(t_cmd(Tnc)) --> new_command(Tnc).
 % NC ::= I = AE | if BE then CMD else CMD fi | while BE begin CMD end | for( int I = AE; BE ; AE) begin CMD end | for I in range(N,N) begin CMD end | BE? CMD : CMD | print (EXP) 
 
 new_command(t_ncmd(Tid,Tae)) --> identifier(Tid),['='],ae(Tae).
-new_command(t_ncmd_if([Tbe,Tcmd,Tcmd1)) --> ['if'],be(Tbe),['then'],command(Tcmd),['else'],command[Tcmd1],['fi'].
+new_command(t_ncmd_if(Tbe,Tcmd,Tcmd1)) --> ['if'],be(Tbe),['then'],command(Tcmd),['else'],command[Tcmd1],['fi'].
 new_command(t_ncmd_while(Tbe,Tcmd)) --> ['while'],be(Tbe),['begin'],command(Tcmd),['end'].
 new_command(t_ncmd_for(Tid,Tae,Tbe,Tae1,Tcmd)) --> ['for'],['('],['int'],identifier(Tid),['='],ae(Tae),[';'],be(Tbe),[';'],ae(Tae1),[')'],['begin'],command(Tcmd),['end'].
 new_command(t_ncmd_for_range(Tid,Tnum1,Tnum2,Tcmd)) --> ['for'],identifier(Tid),['in'],['range'],['('],num(Tnum1),[','],num(Tnum2),[')'],['begin'],command(Tcmd),['end'].
@@ -77,7 +77,7 @@ bool_val(false)--> ['false'].
 
 % AE ::= I:=T|T
 ae(t_ae(ID,T))--> identifier(ID),[':='],t(T).
-ae(t_ae(T))--> t.
+ae(t_ae(T))--> t(T).
 
 
 % T::=T + T2 | T – T2 | T2
@@ -129,7 +129,7 @@ ch(z)--> ['z'].
 
 % N := DIG N | DIG
 num(t_num(Dig,Num))--> dig(Dig),num(Num).
-num(t_num(Dig))--> dig.
+num(t_num(Dig))--> dig(Dig).
 
 %DIG := 0|1|2|3|4|5|6|7|8|9
 dig(0)--> ['0'].
