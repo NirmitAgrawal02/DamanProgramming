@@ -174,6 +174,28 @@ ae_eval(t_term_min(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(
 ae_eval(t_t2_prod(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1*Val2.
 ae_eval(t_t2_div(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1/Val2.
 
+% % SUB ::= AE==AE | AE>AE | AE<AE | AE>= AE | AE<=AE | AE!= AE | not SUB | BOOL_VAL 
+% sub(t_sub_eq(AE1,AE2))--> ae(AE1),['=='],ae(AE2).
+% sub(t_sub_greaterthan(AE1,AE2))--> ae(AE1),['>'],ae(AE2).
+% sub(t_sub_lessthan(AE1,AE2))--> ae(AE1),['<'],ae(AE2).
+% sub(t_sub_gteqto(AE1,AE2))--> ae(AE1),['>='],ae(AE2).
+% sub(t_sub_lteqto(AE1,AE2))--> ae(AE1),['<='],ae(AE2).
+% sub(t_sub_noteq(AE1,AE2))--> ae(AE1),['!='],ae(AE2).
+% sub(t_sub_not(Sub))--> ['not'],sub(Sub).
+% sub(t_sub_bool(Bool))--> bool_val(Bool).
+
+booleanexpression_eval(t_be_and(Sub, BE), Val) :- sub_eval(Sub, Sub_Val), booleanexpression_eval(BE, BE_Val), Val = (Sub_Val, BE_Val).
+booleanexpression_eval(t_be_or(Sub,BE),Val) :- sub_eval(Sub, Sub_Val), booleanexpression_eval(BE, BE_Val), Val = (Sub_Val; BE_Val).
+booleanexpression_eval(t_be(Sub),Val) :- sub_eval(Sub,Val).
+sub_eval(t_sub_eq(AE1, AE2), Val) :- ae_eval(AE1, Val1), ae_eval(AE2, Val2), Val = (Val1 =:= Val2).
+sub_eval(t_sub_greaterthan(AE1, AE2), Val) :- ae_eval(AE1, Val1), ae_eval(AE2, Val2), Val = (Val1 > Val2).
+sub_eval(t_sub_lessthan(AE1, AE2), Val) :- ae_eval(AE1, Val1), ae_eval(AE2, Val2), Val = (Val1 < Val2).
+sub_eval(t_sub_gteqto(AE1, AE2), Val) :- ae_eval(AE1, Val1), ae_eval(AE2, Val2), Val = (Val1 >= Val2).
+sub_eval(t_sub_lteqto(AE1, AE2), Val) :- ae_eval(AE1, Val1), ae_eval(AE2, Val2), Val = (Val1 =< Val2).
+sub_eval(t_sub_noteq(AE1, AE2), Val) :- ae_eval(AE1, Val1), ae_eval(AE2, Val2), Val = (Val1 == Val2).
+sub_eval(t_sub_not(Sub), Val) :- sub_eval(Sub, Sub_Val), Val = (+ Sub_Val).
+sub_eval(t_sub_bool(Bool), Val) :- Val = Bool.
+
 % identifier(t_id(CH))--> ch(CH).
 % identifier(t_id(CH,ID))--> ch(CH),identifier(ID).
 identifier_eval(t_id(C),Env,Val) :- char_eval(C,Env,Val).
