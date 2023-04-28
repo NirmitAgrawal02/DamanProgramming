@@ -209,7 +209,7 @@ command_eval(t_cmd(Tnc),Env,Env1) :- new_command_eval(Tnc,Env,Env1).
 % new_command(t_ncmd_print(Texp)) --> ['print'],['('],exp(Texp),[')'].
 
 new_command_eval(t_ncmd(Tid,Tae),Env,Env1):- ae_eval(Tae,Env,ImdEnv,Val),update(Tid,ImdEnv,Val,Env1).
-new_command_eval(t_ncmd_if(Tbe,Tcmd,_)):-booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,Env1).
+new_command_eval(t_ncmd_if(Tbe,Tcmd,_),Env,Env1):-booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,Env1).
 new_command_eval(t_ncmd_if(Tbe,_,Tcmd1),Env,Env1):-booleanexpression_eval(Tbe,false,Env,ImdEnv),command_eval(Tcmd1,ImdEnv,Env1).
 new_command_eval(t_ncmd_while(Tbe,_Tcmd),Env,Env1):-booleanexpression_eval(Tbe,false,Env,Env1).
 new_command_eval(t_ncmd_while(Tbe,Tcmd),Env,Env1):- booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,ImdEnv1),new_command_eval(t_ncmd_while(Tbe,Tcmd),ImdEnv1,Env1).
