@@ -162,7 +162,7 @@ update(I,[(I,_)|T],NewVal,[(I,NewVal)|T]).
 update(I,[H|T],NewVal,[H|NewEnv]) :- H\=(I,_),update(I,T,NewVal,NewEnv).
 
 
-=======
+
 identifier_eval(I,Env,Val) :- lookup(I,Env,Val).
 digit_eval(Dig,Dig).
 
