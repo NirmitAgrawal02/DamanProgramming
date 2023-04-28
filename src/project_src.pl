@@ -162,8 +162,10 @@ update(I,[(I,_)|T],NewVal,[(I,NewVal)|T]).
 update(I,[H|T],NewVal,[H|NewEnv]) :- H\=(I,_),update(I,T,NewVal,NewEnv).
 
 
-
+% Character Eval
 char_eval(I,Env,Val) :- lookup(I,Env,Val).
+
+% Digit Eval
 digit_eval(Dig,Dig).
 
 ae_eval(t_ae(I,T),Env,NewEnv,Val) :- ae_eval(T,Env,InterEnv,Val),update(I,InterEnv,Val,NewEnv).
