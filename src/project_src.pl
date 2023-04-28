@@ -189,6 +189,12 @@ ae_eval(t_term_min(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(
 ae_eval(t_t2_prod(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1*Val2.
 ae_eval(t_t2_div(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1/Val2.
 
+% bool_val(true)--> ['true'].
+% bool_val(false)--> ['false'].
+
+boolval_eval(true,true).
+boolval_eval(false,false).
+
 % % SUB ::= AE==AE | AE>AE | AE<AE | AE>= AE | AE<=AE | AE!= AE | not SUB | BOOL_VAL 
 % sub(t_sub_eq(AE1,AE2))--> ae(AE1),['=='],ae(AE2).
 % sub(t_sub_greaterthan(AE1,AE2))--> ae(AE1),['>'],ae(AE2).
