@@ -99,7 +99,7 @@ bool_val(false)--> ['false'].
 identifier(I) --> [I], {atom(I)}.
 
 % N ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-num(N) --> [N], {number(N)}.
+num(N) --> [N], {integer(N)}.
 
 
 
