@@ -165,6 +165,21 @@ update(I,[H|T],NewVal,[H|NewEnv]) :- H\=(I,_),update(I,T,NewVal,NewEnv).
 % Character Eval
 char_eval(I,Env,Val) :- lookup(I,Env,Val).
 
+% % STRING ::= "TEMP"
+% str(t_str(Temp))-->['"'],temp(Temp),['"'].
+
+% % TEMP ::= CH TEMP | N TEMP | CH | N
+% temp(t_temp(CH))--> ch(CH).
+% temp(t_temp(Num))--> num(Num).
+% temp(t_temp(CH,Temp))--> ch(CH),temp(Temp).
+% temp(t_temp(Num,Temp))--> num(Num),temp(Temp).
+
+string_eval(t_str(Temp),Env,Val) :- temp_eval(Temp,Env,Val).
+temp_eval(t_temp(CH), Env, Val) :- char_eval(CH, Env, Val).
+temp_eval(t_temp(Num), _, Val) :- num_eval(Num, Val).
+temp_eval(t_temp(CH, Temp), Env, Val) :- char_eval(CH, Env, CH_Val), temp_eval(Temp, Env, Temp_Val), atomic_concat(CH_Val, Temp_Val, Val).
+temp_eval(t_temp(Num, Temp), Env, Val) :- num_eval(Num, Num_Val), temp_eval(Temp, Env, Temp_Val), atomic_concat(Num_Val, Temp_Val, Val).
+
 % Digit Eval
 digit_eval(Dig,Dig).
 
@@ -173,6 +188,7 @@ ae_eval(t_term_plus(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval
 ae_eval(t_term_min(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1-Val2.
 ae_eval(t_t2_prod(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1*Val2.
 ae_eval(t_t2_div(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1/Val2.
+
 
 % % SUB ::= AE==AE | AE>AE | AE<AE | AE>= AE | AE<=AE | AE!= AE | not SUB | BOOL_VAL 
 % sub(t_sub_eq(AE1,AE2))--> ae(AE1),['=='],ae(AE2).
