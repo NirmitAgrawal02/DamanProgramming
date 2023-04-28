@@ -82,10 +82,10 @@ exp(t_exp(Str))--> str(Str).
 % STRING ::= "TEMP"
 str(t_str(Temp))-->['"'],temp(Temp),['"'].
 
-% TEMP ::= CH TEMP | N TEMP | CH | N
-temp(t_temp(CH))--> ch(CH).
+% TEMP ::= I TEMP | N TEMP | I | N
+temp(t_temp(CH))--> identifier(CH).
 temp(t_temp(Num))--> num(Num).
-temp(t_temp(CH,Temp))--> ch(CH),temp(Temp).
+temp(t_temp(CH,Temp))--> identifier(CH),temp(Temp).
 temp(t_temp(Num,Temp))--> num(Num),temp(Temp).
 
 
@@ -93,56 +93,14 @@ temp(t_temp(Num,Temp))--> num(Num),temp(Temp).
 bool_val(true)--> ['true'].
 bool_val(false)--> ['false'].
 
-% I ::= CH I | CH
-identifier(t_id(CH))--> ch(CH).
-identifier(t_id(CH,ID))--> ch(CH),identifier(ID).
+
+% I ::= x | y | z | u | v
+identifier(I) --> [I], {atom(I)}.
+
+% N ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+num(N) --> [N], {number(N)}.
 
 
-% CH ::= a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z
-ch(a)--> [a].
-ch(b)--> [b].
-ch(c)--> [c].
-ch(d)--> [d].
-ch(e)--> [e].
-ch(f)--> [f].
-ch(g)--> [g].
-ch(h)--> [h].
-ch(i)--> [i].
-ch(j)--> [j].
-ch(k)--> [k].
-ch(l)--> [l].
-ch(m)--> [m].
-ch(n)--> [n].
-ch(o)--> [o].
-ch(p)--> [p].
-ch(q)--> [q].
-ch(r)--> [r].
-ch(s)--> [s].
-ch(t)--> [t].
-ch(u)--> [u].
-ch(v)--> [v].
-ch(w)--> [w].
-ch(x)--> [x].
-ch(y)--> [y].
-ch(z)--> [z].
-
-% N := DIG N | DIG)
-
-num(t_num(Dig))--> dig(Dig).
-num(t_num(Dig,Num))--> dig(Dig),num(Num).
-
-
-%DIG := 0|1|2|3|4|5|6|7|8|9
-dig(0)--> [0].
-dig(1)--> [1].
-dig(2)--> [2].
-dig(3)--> [3].
-dig(4)--> [4].
-dig(5)--> [5].
-dig(6)--> [6].
-dig(7)--> [7].
-dig(8)--> [8].
-dig(9)--> [9].
 
 % Evaluator
 
@@ -181,7 +139,7 @@ declaration_eval(t_decl_decl(A),Env,Env1) :- decl_variable_eval(A,Env, Env1).
 % ass_variable(t_ass_variable_bool(Tid,Tbval)) --> ['bool'],identifier(Tid),['='],bool_val(Tbval).
 % ass_variable(t_ass_variable_st(Tid,Tstr)) --> ['st'],identifier(Tid),['='],str(Tstr).
 
-ass_variable_eval(t_ass_variable_int(Tid,Tnum),Env,Env1):- digit_eval(Tid, Val),update(Tnum,Env,Val,Env1).
+ass_variable_eval(t_ass_variable_int(Tid,Tnum),Env,Env1):- num_eval(Tid, Val),update(Tnum,Env,Val,Env1).
 ass_variable_eval(t_ass_variable_bool(Tid,Tbval),Env,Env1):- boolval_eval(Tbval,Val),update(Tid,Env,Val,Env1).
 ass_variable_eval(t_ass_variable_st(Tid,Tstr),Env,Env1):-str_eval(Tstr,Env,Val),update(Tid,Env,Val,Env1).
 
@@ -298,10 +256,10 @@ str_eval(t_str(Temp),Env,Val) :- temp_eval(Temp,Env,Val).
 % temp(t_temp(CH,Temp))--> ch(CH),temp(Temp).
 % temp(t_temp(Num,Temp))--> num(Num),temp(Temp).
 
-temp_eval(t_temp(CH), Env, Val) :- char_eval(CH, Env, Val).
+temp_eval(t_temp(CH), Env, Val) :- identifier_eval(CH, Env, Val).
 temp_eval(t_temp(Num), _, Val) :- num_eval(Num, Val).
-temp_eval(t_temp(CH, Temp), Env, Val) :- char_eval(CH, Env, CH_Val), temp_eval(Temp, Env, Temp_Val), atomic_concat(CH_Val, Temp_Val, Val).
-temp_eval(t_temp(Num, Temp), Env, Val) :- num_eval(Num, Num_Val), temp_eval(Temp, Env, Temp_Val), atomic_concat(Num_Val, Temp_Val, Val).
+temp_eval(t_temp(CH, Temp), Env, Val) :- identifier_eval(CH, Env, CH_Val), temp_eval(Temp, Env, Temp_Val), atomic_concat(Temp_Val,CH_Val, Val).
+temp_eval(t_temp(Num, Temp), Env, Val) :- num_eval(Num, Num_Val), temp_eval(Temp, Env, Temp_Val), atomic_concat(Temp_Val,Num_Val, Val).
 
 
 % bool_val(true)--> ['true'].
@@ -310,19 +268,9 @@ temp_eval(t_temp(Num, Temp), Env, Val) :- num_eval(Num, Num_Val), temp_eval(Temp
 boolval_eval(true,true).
 boolval_eval(false,false).
 
-% identifier(t_id(CH))--> ch(CH).
-% identifier(t_id(CH,ID))--> ch(CH),identifier(ID).
-identifier_eval(t_id(C),Env,Val) :- char_eval(C,Env,Val).
-identifier_eval(t_id(C,I),Env,Val) :- char_eval(C,Env,CharVal),identifier_eval(I,Env,IVal),atomic_concat(CH_Val, ID_Val, Val).
 
-% Character Eval
-char_eval(I,Env,Val) :- lookup(I,Env,Val).
+identifier_eval(I,Env,Val) :- lookup(I,Env,Val).
 
-% num(t_num(Dig))--> dig(Dig).
-% num(t_num(Dig,Num))--> dig(Dig),num(Num).
-
-num_eval(t_num(D),Val) :- digit_eval(D,Val).
-num_eval(t_num(D,Num),Val) :- digit_eval(D, D_Val),num_eval(Num, Num_Val),Val is Dig_Val * 10 + Num_Val.
 
 % Digit Eval
-digit_eval(Dig,Dig).
+num_eval(Dig,Dig).
