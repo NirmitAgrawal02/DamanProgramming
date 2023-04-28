@@ -71,7 +71,7 @@ t3(t_t3_par(AE))--> ['('],ae(AE),[')'].
 t3(t_t3(ID))--> identifier(ID).
 t3(t_t3(Num))--> num(Num).
 
-% EXP ::= AE;EXP | BE;EXP | STRING; EXP | N ; EXP | I; EXP|AE | BE | STRING | N | I 
+% EXP ::= AE;EXP | BE;EXP | STRING; EXP | AE | BE | STRING
 exp(t_exp(AE,Exp))--> ae(AE),[';'],exp(Exp).
 exp(t_exp(BE,Exp))--> be(BE),[';'],exp(Exp).
 exp(t_exp(Str,Exp))--> str(Str),[';'],exp(Exp).
