@@ -282,3 +282,9 @@ new_command_eval(t_ncmd_ternary(Tbe,Tcmd,_Tcmd1),Env,Env1):- booleanexpression_e
 new_command_eval(t_ncmd_ternary(Tbe,_Tcmd,Tcmd1),Env,Env1):- booleanexpression_eval(Tbe,false,Env,ImdEnv),command_eval(Tcmd1,ImdEnv,Env1).
 
 % new_command_eval(t_cmdblk(Tb1),Env,Env1):-block_eval(Tb1,Env,Env1).
+
+% bool_val(true)--> ['true'].
+% bool_val(false)--> ['false'].
+
+boolval_eval(true,true).
+boolval_eval(false,false).
