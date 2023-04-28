@@ -1,0 +1,13 @@
+start
+    int x = 4;
+    if  x == 4
+        then
+            x = x + 1
+    else
+            x = x + 2
+    fi
+finish . 
+
+
+
+start, int, x, =, 8,;, if,x,==,8 , then,  x, =, 7, else, z , = , 0 , fi,  finish, .
