@@ -87,6 +87,7 @@ temp(t_temp(CH))--> identifier(CH).
 temp(t_temp(Num))--> num(Num).
 temp(t_temp(CH,Temp))--> identifier(CH),temp(Temp).
 temp(t_temp(Num,Temp))--> num(Num),temp(Temp).
+% atom_num(AN) --> atom(A), num(N), {atom_number(A, N), AN =.. [A, N]}.
 
 
 % BOOL_VAL ::= true|false 
