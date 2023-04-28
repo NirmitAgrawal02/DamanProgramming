@@ -182,8 +182,8 @@ declaration_eval(t_decl_decl(A),Env,Env1) :- decl_variable_eval(A,Env, Env1).
 % ass_variable(t_ass_variable_st(Tid,Tstr)) --> ['st'],identifier(Tid),['='],str(Tstr).
 
 ass_variable_eval(t_ass_variable_int(Tid,Tnum),Env,Env1):- digit_eval(Tid, Val),update(Tnum,Env,Val,Env1).
-ass_variable_eval(t_ass_variable_bool(Tid,Tbval),Env,Env1):- boolval_eval(N,Val),update(Tbval,Env,Val,Env1).
-ass_variable_eval(t_ass_variable_st(Tid,Tstr),Env,Env1):-str_eval(Tstr,Env,Val),update(Tstr,Env,Val,Env1).
+ass_variable_eval(t_ass_variable_bool(Tid,Tbval),Env,Env1):- boolval_eval(Tbval,Val),update(Tid,Env,Val,Env1).
+ass_variable_eval(t_ass_variable_st(Tid,Tstr),Env,Env1):-str_eval(Tstr,Env,Val),update(Tid,Env,Val,Env1).
 
 % decl_variable(t_decl_variable_int(Tid)) --> ['int'],identifier(Tid).
 % decl_variable(t_decl_variable_bool(Tid)) --> ['bool'],identifier(Tid).
