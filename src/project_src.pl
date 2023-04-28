@@ -183,9 +183,9 @@ new_command_eval(t_ncmd_print(Texp),Env,Env1):-exp_eval(Texp,Env,Env1).
 new_command_eval(t_cmdblk(Tb1),Env,Env1):-block_eval(Tb1,Env,Env1).
 
 % BE ::= SUB and BE | SUB or BE | SUB
-be(t_be_and(Sub,BE))--> sub(Sub),['and'],be(BE).
-be(t_be_or(Sub,BE))--> sub(Sub),['or'],be(BE).
-be(t_be(Sub))--> sub(Sub).
+% be(t_be_and(Sub,BE))--> sub(Sub),['and'],be(BE).
+% be(t_be_or(Sub,BE))--> sub(Sub),['or'],be(BE).
+% be(t_be(Sub))--> sub(Sub).
 
 booleanexpression_eval(t_be_and(Sub, BE), Val,Env,Env1) :- sub_eval(Sub, Sub_Val,Env,ImdEnv), booleanexpression_eval(BE, BE_Val,ImdEnv,Env1), Val = (Sub_Val, BE_Val).
 booleanexpression_eval(t_be_or(Sub,BE),Val,Env,Env1) :- sub_eval(Sub, Sub_Val,Env,ImdEnv), booleanexpression_eval(BE, BE_Val,ImdEnv,Env1), Val = (Sub_Val; BE_Val).
