@@ -64,13 +64,13 @@ Contributions are welcome! If you find a bug or have an idea for a new feature, 
 The source code is available under the [MIT license](https://github.com/bitcookies/winrar-keygen/blob/master/LICENSE)
 
 
-### Technologies & Languages :
+### Technologies & Languages
 
 ![CSS](https://img.shields.io/badge/-CSS3-blue?style=flat-round&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-round&logo=javascript)
 ![Python](https://img.shields.io/badge/-Python-black?style=flat-round&logo=Python)
 
-### Libraries & Frameworks :
+### Libraries & Frameworks
 
 ![Node.js](https://img.shields.io/badge/-Node-026E00?style=flat-round&logo=node)
 ![Flask](https://img.shields.io/badge/-Flask-blue?style=flat-round&logo=flask)
@@ -79,7 +79,7 @@ The source code is available under the [MIT license](https://github.com/bitcooki
 ![Selenium](https://img.shields.io/badge/-Selenium-black?style=flat-round&logo=selenium)
 
 
-### Reach out to us on:
+### Reach out to us on
 
 [![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-round&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alok-rajpurohit-1941461a3/)](https://www.linkedin.com/in/alok-rajpurohit-1941461a3/)
 [![Twitter Badge](https://img.shields.io/badge/-Twitter-blue?style=flat-round&logo=Twitter&logoColor=white&link=https://twitter.com/AlokPur32580593)](https://twitter.com/AlokPur32580593)
