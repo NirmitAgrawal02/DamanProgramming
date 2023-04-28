@@ -177,6 +177,12 @@ ae_eval(t_t2_div(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,
 identifier_eval(t_id(C),Env,Val) :- char_eval(C,Env,Val).
 identifier_eval(t_id(C,I),Env,Val) :- char_eval(C,Env,CharVal),identifier_eval(I,Env,IVal),atomic_concat(CH_Val, ID_Val, Val).
 
+% num(t_num(Dig))--> dig(Dig).
+% num(t_num(Dig,Num))--> dig(Dig),num(Num).
+
+num_eval(t_num(D),Val) :- digit_eval(D,Val).
+num_eval(t_num(D,Num),Val) :- digit_eval(D, D_Val),num_eval(Num, Num_Val),Val is Dig_Val * 10 + Num_Val.
+
 % block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
 
 block_eval(t_b(Td,Tc),Env,Env1) :- declaration_eval(Td,Env,ImdEnv),command(Tc,ImdEnv,Env1). 
