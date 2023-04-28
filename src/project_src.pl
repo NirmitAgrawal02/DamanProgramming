@@ -155,3 +155,12 @@ lookup(I,[H|T],Val) :- lookup(I,T,Val).
 update(I,[],NewVal,[(I,NewVal)]).
 update(I,[(I,_)|T],NewVal,[(I,NewVal)|T]).
 update(I,[H|T],NewVal,[H|NewEnv]) :- H\=(I,_),update(I,T,NewVal,NewEnv).
+
+identifier_eval(I,Env,Val) :- lookup(I,Env,Val).
+digit_eval(Dig,Dig).
+
+ae_eval(t_ae(I,T),Env,NewEnv,Val) :- ae_eval(T,Env,InterEnv,Val),update(I,InterEnv,Val,NewEnv).
+ae_eval(t_term_plus(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1+Val2.
+ae_eval(t_term_min(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1-Val2.
+ae_eval(t_t2_prod(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1*Val2.
+ae_eval(t_t2_div(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1/Val2.
