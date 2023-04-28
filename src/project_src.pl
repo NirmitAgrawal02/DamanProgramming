@@ -276,3 +276,4 @@ identifier_eval(I,Env,Val) :- lookup(I,Env,Val).
 
 % Digit Eval
 num_eval(Dig,Dig).
+
