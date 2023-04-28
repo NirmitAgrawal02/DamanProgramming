@@ -161,6 +161,9 @@ update(I,[],NewVal,[(I,NewVal)]).
 update(I,[(I,_)|T],NewVal,[(I,NewVal)|T]).
 update(I,[H|T],NewVal,[H|NewEnv]) :- H\=(I,_),update(I,T,NewVal,NewEnv).
 
+% Program Evaluator
+
+program_eval(t_p(A),X,Y,Z) :- update(x,[],X,Env1), update(y,Env1,Y,Env2), update(z,Env2,0,Env3), block_eval(A,Env3,Env4), lookup(z,Env4,Z).
 
 % Character Eval
 char_eval(I,Env,Val) :- lookup(I,Env,Val).
