@@ -248,7 +248,7 @@ sub_eval(t_sub_gteqto(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1,Env,ImdEnv, Val1),
 sub_eval(t_sub_lteqto(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1,Env,ImdEnv, Val1), ae_eval(AE2,ImdEnv,Env1, Val2), Val = (Val1 =< Val2).
 sub_eval(t_sub_noteq(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1,Env,ImdEnv, Val1), ae_eval(AE2,ImdEnv,Env1, Val2), Val = (Val1 == Val2).
 sub_eval(t_sub_not(Sub), Val,Env,Env1) :- sub_eval(Sub, Sub_Val,Env,Env1), Val = (+ Sub_Val).
-sub_eval(t_sub_bool(Bool), Val) :- Val = Bool.
+sub_eval(t_sub_bool(Bool), Val,Env,Env) :- Val = Bool.
 
 % ae(t_ae(ID,T))--> identifier(ID),['='],t(T).
 % ae(t_ae(T))--> t(T).
@@ -280,11 +280,11 @@ ae_eval(t_num(N),Env,Env,Val):-num_eval(N,Val).
 % exp(t_exp(BE))--> be(BE).
 % exp(t_exp(Str))--> str(Str).
 
-exp_eval(t_exp(AE, Exp), Env,Env1,Value) :- ae_eval(AE,Env,ImdEnv,Val), exp_eval(Exp,ImdEnv,Env1,Val1),write(Val).
-exp_eval(t_exp(BE, Exp), Env,Env1,Value) :- booleanexpression_eval(BE,Env,ImdEnv,Val), exp_eval(Exp,ImdEnv,Env1,Val1),write(Val).
-exp_eval(t_exp(Str, Exp), Env,Env1,Value) :- str_eval(Str, Env, Val), exp_eval(Exp, Env, Env1,Val1),write(Val).
-exp_eval(t_exp(AE), Env,Env1,Value) :- ae_eval(AE,Env,Env1,Val),write(Val).
-exp_eval(t_exp(BE),Env,Env1,Value) :- booleanexpression_eval(BE,Env,Env1,Val),write(Val).
+exp_eval(t_exp(AE, Exp), Env,Env1) :- ae_eval(AE,Env,ImdEnv,Val), exp_eval(Exp,ImdEnv,Env1),write(Val).
+exp_eval(t_exp(BE, Exp), Env,Env1) :- booleanexpression_eval(BE,Env,ImdEnv,Val), exp_eval(Exp,ImdEnv,Env1),write(Val).
+exp_eval(t_exp(Str, Exp), Env,Env1) :- str_eval(Str, Env, Val), exp_eval(Exp, Env, Env1),write(Val).
+exp_eval(t_exp(AE), Env,Env1) :- ae_eval(AE,Env,Env1,Val),write(Val).
+exp_eval(t_exp(BE),Env,Env1) :- booleanexpression_eval(BE,Env,Env1,Val),write(Val).
 exp_eval(t_exp(Str), Env, Value) :- str_eval(Str, Env, Val),write(Val).
 
 % % STRING ::= "TEMP"
