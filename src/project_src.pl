@@ -74,13 +74,9 @@ t3(t_t3(Num))--> num(Num).
 exp(t_exp(AE,Exp))--> ae(AE),[';'],exp(Exp).
 exp(t_exp(BE,Exp))--> be(BE),[';'],exp(Exp).
 exp(t_exp(Str,Exp))--> str(Str),[';'],exp(Exp).
-exp(t_exp(Num,Exp))--> num(Num),[';'],exp(Exp).
-exp(t_exp(ID,Exp))--> identifier(ID),[';'],exp(Exp).
 exp(t_exp(AE))--> ae(AE).
 exp(t_exp(BE))--> be(BE).
 exp(t_exp(Str))--> str(Str).
-exp(t_exp(Num))--> num(Num).
-exp(t_exp(ID))--> identifier(ID).
 
 % STRING ::= "TEMP"
 str(t_str(Temp))-->['"'],temp(Temp),['"'].
