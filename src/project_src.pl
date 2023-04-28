@@ -129,7 +129,8 @@ ch(x)--> [x].
 ch(y)--> [y].
 ch(z)--> [z].
 
-% N := DIG N | DIG
+% N := DIG N | DIG)
+
 num(t_num(Dig))--> dig(Dig).
 num(t_num(Dig,Num))--> dig(Dig),num(Num).
 
@@ -148,10 +149,36 @@ dig(9)--> [9].
 
 % Evaluator
 
+% Lookup 
+
 lookup(I,[],_) :- nl,fail.
 lookup(I,[(I,Val)|_],Val).
 lookup(I,[H|T],Val) :- lookup(I,T,Val).
 
+% Update 
+
 update(I,[],NewVal,[(I,NewVal)]).
 update(I,[(I,_)|T],NewVal,[(I,NewVal)|T]).
 update(I,[H|T],NewVal,[H|NewEnv]) :- H\=(I,_),update(I,T,NewVal,NewEnv).
+
+
+% block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
+
+block_eval(t_b(Td,Tc),Env,Env1) :- declaration_eval(Td,Env,ImdEnv),command(Tc,ImdEnv,Env1). 
+
+% declaration(t_ass_decl(A,D)) --> ass_variable(A),[';'],declaration(D).
+% declaration(t_decl_decl(A,D)) --> decl_variable(A),[';'],declaration(D).
+% declaration(t_ass_decl(A)) --> ass_variable(A).
+% declaration(t_decl_decl(A)) --> decl_variable(A).
+
+declaration_eval(t_ass_decl(A,D),Env,Env1):- ass_variable_eval(A,Env,ImdEnv),declaration(B,ImdEnv,Env1).
+declaration_eval(t_decl_decl(A,D),Env,Env1) :- decl_variable_eval(A,Env,ImdEnv),declaration(B,ImdEnv,Env1).
+declaration_eval(t_ass_decl(A),Env,Env1):- ass_variable_eval(A,Env,Env1).
+declaration_eval(t_decl_decl(A),Env,Env1) :- decl_variable_eval(A,Env, Env1).
+
+% ass_variable(t_ass_variable_int(Tid,Tnum)) --> ['int'],identifier(Tid),['='],num(Tnum).
+% ass_variable(t_ass_variable_bool(Tid,Tbval)) --> ['bool'],identifier(Tid),['='],bool_val(Tbval).
+% ass_variable(t_ass_variable_st(Tid,Tstr)) --> ['st'],identifier(Tid),['='],str(Tstr).
+
+ass_variable_eval(t_ass_variable_int(Tid,Tnum),Env,Env1):- digit_eval(N, Val), ,update(I,ImdEnv,Val,Env1).
+ass_variable_eval(t_ass_variable_bool(Tid,Tbval),Env,Env1):-
