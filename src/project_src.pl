@@ -181,8 +181,8 @@ block_eval(t_b(Td,Tc),Env,Env1) :- declaration_eval(Td,Env,ImdEnv),command(Tc,Im
 % declaration(t_ass_decl(A)) --> ass_variable(A).
 % declaration(t_decl_decl(A)) --> decl_variable(A).
 
-declaration_eval(t_ass_decl(A,D),Env,Env1):- ass_variable_eval(A,Env,ImdEnv),declaration(B,ImdEnv,Env1).
-declaration_eval(t_decl_decl(A,D),Env,Env1) :- decl_variable_eval(A,Env,ImdEnv),declaration(B,ImdEnv,Env1).
+declaration_eval(t_ass_decl(A,D),Env,Env1):- ass_variable_eval(A,Env,ImdEnv),declaration(D,ImdEnv,Env1).
+declaration_eval(t_decl_decl(A,D),Env,Env1) :- decl_variable_eval(A,Env,ImdEnv),declaration(D,ImdEnv,Env1).
 declaration_eval(t_ass_decl(A),Env,Env1):- ass_variable_eval(A,Env,Env1).
 declaration_eval(t_decl_decl(A),Env,Env1) :- decl_variable_eval(A,Env, Env1).
 
@@ -190,5 +190,8 @@ declaration_eval(t_decl_decl(A),Env,Env1) :- decl_variable_eval(A,Env, Env1).
 % ass_variable(t_ass_variable_bool(Tid,Tbval)) --> ['bool'],identifier(Tid),['='],bool_val(Tbval).
 % ass_variable(t_ass_variable_st(Tid,Tstr)) --> ['st'],identifier(Tid),['='],str(Tstr).
 
-ass_variable_eval(t_ass_variable_int(Tid,Tnum),Env,Env1):- digit_eval(N, Val), ,update(I,ImdEnv,Val,Env1).
-ass_variable_eval(t_ass_variable_bool(Tid,Tbval),Env,Env1):-
+ass_variable_eval(t_ass_variable_int(Tid,Tnum),Env,Env1):- digit_eval(Tid, Val),update(Tnum,Env,Val,Env1).
+% Not Sure
+ass_variable_eval(t_ass_variable_bool(Tid,Tbval),Env,Env1):- bool_eval(N,Val),update(Tbval,Env,Val,Env1).
+ass_variable_eval(t_ass_variable_st(Tid,Tstr),Env,Env1):-str_eval(Tstr,Val),update(Tstr,Env,Val,Env1).
+
