@@ -171,3 +171,24 @@ ae_eval(t_term_plus(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval
 ae_eval(t_term_min(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1-Val2.
 ae_eval(t_t2_prod(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1*Val2.
 ae_eval(t_t2_div(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1/Val2.
+
+% block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
+
+block_eval(t_b(Td,Tc),Env,Env1) :- declaration_eval(Td,Env,ImdEnv),command(Tc,ImdEnv,Env1). 
+
+% declaration(t_ass_decl(A,D)) --> ass_variable(A),[';'],declaration(D).
+% declaration(t_decl_decl(A,D)) --> decl_variable(A),[';'],declaration(D).
+% declaration(t_ass_decl(A)) --> ass_variable(A).
+% declaration(t_decl_decl(A)) --> decl_variable(A).
+
+declaration_eval(t_ass_decl(A,D),Env,Env1):- ass_variable_eval(A,Env,ImdEnv),declaration(B,ImdEnv,Env1).
+declaration_eval(t_decl_decl(A,D),Env,Env1) :- decl_variable_eval(A,Env,ImdEnv),declaration(B,ImdEnv,Env1).
+declaration_eval(t_ass_decl(A),Env,Env1):- ass_variable_eval(A,Env,Env1).
+declaration_eval(t_decl_decl(A),Env,Env1) :- decl_variable_eval(A,Env, Env1).
+
+% ass_variable(t_ass_variable_int(Tid,Tnum)) --> ['int'],identifier(Tid),['='],num(Tnum).
+% ass_variable(t_ass_variable_bool(Tid,Tbval)) --> ['bool'],identifier(Tid),['='],bool_val(Tbval).
+% ass_variable(t_ass_variable_st(Tid,Tstr)) --> ['st'],identifier(Tid),['='],str(Tstr).
+
+ass_variable_eval(t_ass_variable_int(Tid,Tnum),Env,Env1):- digit_eval(N, Val), ,update(I,ImdEnv,Val,Env1).
+ass_variable_eval(t_ass_variable_bool(Tid,Tbval),Env,Env1):-
