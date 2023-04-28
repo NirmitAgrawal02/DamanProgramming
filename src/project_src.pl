@@ -145,3 +145,13 @@ dig(6)--> [6].
 dig(7)--> [7].
 dig(8)--> [8].
 dig(9)--> [9].
+
+% Evaluator
+
+lookup(I,[],_) :- nl,fail.
+lookup(I,[(I,Val)|_],Val).
+lookup(I,[H|T],Val) :- lookup(I,T,Val).
+
+update(I,[],NewVal,[(I,NewVal)]).
+update(I,[(I,_)|T],NewVal,[(I,NewVal)|T]).
+update(I,[H|T],NewVal,[H|NewEnv]) :- H\=(I,_),update(I,T,NewVal,NewEnv).
