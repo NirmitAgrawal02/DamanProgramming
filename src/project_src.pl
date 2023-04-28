@@ -54,22 +54,22 @@ sub(t_sub_bool(Bool))--> bool_val(Bool).
 
 % AE ::= I:=T|T
 ae(t_ae(ID,T))--> identifier(ID),['='],t(T).
-ae(t_ae(T))--> t(T).
+ae(T)--> t(T).
 
 % T::=T + T2 | T – T2 | T2
 t(t_term_plus(T,T2))--> t(T),['+'],t2(T2).
 t(t_term_min(T,T2))--> t(T),['-'],t2(T2).
-t(t_term(T2))--> t2(T2).
+t(T2)--> t2(T2).
 
 % T2::= T2 * T3 | T2 / T3 | T3
 t2(t_t2_prod(T2,T3))--> t2(T2),['*'],t3(T3).
 t2(t_t2_div(T2,T3))--> t2(T2),['/'],t3(T3).
-t2(t_t2(T3))--> t3(T3).
+t2(T3)--> t3(T3).
 
 % T3 ::= (AE)| I |N
 t3(t_t3_par(AE))--> ['('],ae(AE),[')'].
-t3(t_t3(ID))--> identifier(ID).
-t3(t_t3(Num))--> num(Num).
+t3(t_identifier(ID))--> identifier(ID).
+t3(t_num(Num))--> num(Num).
 
 % EXP ::= AE;EXP | BE;EXP | STRING; EXP | AE | BE | STRING
 exp(t_exp(AE,Exp))--> ae(AE),[';'],exp(Exp).
@@ -119,7 +119,7 @@ update(I,[H|T],NewVal,[H|NewEnv]) :- H\=(I,_),update(I,T,NewVal,NewEnv).
 
 % Program Evaluator
 
-program_eval(t_p(A),X,Y,Z) :- update(x,[],X,Env1), update(y,Env1,Y,Env2), update(z,Env2,0,Env3), block_eval(A,Env3,Env4), lookup(z,Env4,Z).
+program_eval(t_p(A),EnvOut) :- block_eval(A,[],EnvOut).
 
 % block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
 
@@ -211,13 +211,13 @@ sub_eval(t_sub_not(Sub), Val,Env,Env1) :- sub_eval(Sub, Sub_Val,Env,Env1), Val =
 sub_eval(t_sub_bool(Bool), Val,Env,Env) :- Val = Bool.
 
 % ae(t_ae(ID,T))--> identifier(ID),['='],t(T).
-% ae(t_ae(T))--> t(T).
+% ae(T)--> t(T).
 % t(t_term_plus(T,T2))--> t(T),['+'],t2(T2).
 % t(t_term_min(T,T2))--> t(T),['-'],t2(T2).
-% t(t_term(T2))--> t2(T2).
+% t(T2)--> t2(T2).
 % t2(t_t2_prod(T2,T3))--> t2(T2),['*'],t3(T3).
 % t2(t_t2_div(T2,T3))--> t2(T2),['/'],t3(T3).
-% t2(t_t2(T3))--> t3(T3).
+% t2(T3)--> t3(T3).
 % t3(t_t3_par(AE))--> ['('],ae(AE),[')'].
 % t3(t_t3(ID))--> identifier(ID).
 % t3(t_t3(Num))--> num(Num).
