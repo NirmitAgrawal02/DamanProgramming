@@ -162,8 +162,10 @@ update(I,[(I,_)|T],NewVal,[(I,NewVal)|T]).
 update(I,[H|T],NewVal,[H|NewEnv]) :- H\=(I,_),update(I,T,NewVal,NewEnv).
 
 
-=======
-identifier_eval(I,Env,Val) :- lookup(I,Env,Val).
+% Character Eval
+char_eval(I,Env,Val) :- lookup(I,Env,Val).
+
+% Digit Eval
 digit_eval(Dig,Dig).
 
 ae_eval(t_ae(I,T),Env,NewEnv,Val) :- ae_eval(T,Env,InterEnv,Val),update(I,InterEnv,Val,NewEnv).
@@ -171,6 +173,17 @@ ae_eval(t_term_plus(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval
 ae_eval(t_term_min(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1-Val2.
 ae_eval(t_t2_prod(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1*Val2.
 ae_eval(t_t2_div(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1/Val2.
+
+% identifier(t_id(CH))--> ch(CH).
+% identifier(t_id(CH,ID))--> ch(CH),identifier(ID).
+identifier_eval(t_id(C),Env,Val) :- char_eval(C,Env,Val).
+identifier_eval(t_id(C,I),Env,Val) :- char_eval(C,Env,CharVal),identifier_eval(I,Env,IVal),atomic_concat(CH_Val, ID_Val, Val).
+
+% num(t_num(Dig))--> dig(Dig).
+% num(t_num(Dig,Num))--> dig(Dig),num(Num).
+
+num_eval(t_num(D),Val) :- digit_eval(D,Val).
+num_eval(t_num(D,Num),Val) :- digit_eval(D, D_Val),num_eval(Num, Num_Val),Val is Dig_Val * 10 + Num_Val.
 
 % block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
 
@@ -225,5 +238,6 @@ new_command_eval(t_ncmd_while(Tbe,_Tcmd),Env,Env1):-booleanexpression_eval(Tbe,f
 new_command_eval(t_ncmd_while(Tbe,Tcmd),Env,Env1):- booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,ImdEnv1),new_command_eval(t_ncmd_while(Tbe,Tcmd),ImdEnv1,Env1).
 new_command_eval(t_ncmd_for(Tid,Tae,Tbe,_Tae1,_Tcmd),Env,Env1):-ae_eval(Tae,Env,ImdEnv,Val),update(Tid,ImdEnv,Val,ImdEnv2),booleanexpression_eval(Tbe,false,ImdEnv2,Env1).
 new_command_eval(t_ncmd_for(Tid,Tae,Tbe,Tae1,Tcmd),Env,Env1):-ae_eval(Tae,Env,ImdEnv,Val),update(Tid,ImdEnv,Val,ImdEnv2),booleanexpression_eval(Tbe,true,ImdEnv2,ImdEnv3),command_eval(Tcmd,ImdEnv3,ImdEnv4),ae_eval(Tae1,ImdEnv4,ImdEnv5,Val1),update(Tid,ImdEnv5,Val1,ImdEnv6),new_command_eval(t_ncmd_for(Tid,Tae,Tbe,Tae1,Tcmd),ImdEnv6,Env1).
-
+new_command(t_ncmd_ternary(Tbe,Tcmd,_Tcmd1),Env,Env1):- booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,Env1).
+new_command(t_ncmd_ternary(Tbe,_Tcmd,Tcmd1),Env,Env1):- booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd1,ImdEnv,Env1).
 % new_command_eval(t_cmdblk(Tb1),Env,Env1):-block_eval(Tb1,Env,Env1).
