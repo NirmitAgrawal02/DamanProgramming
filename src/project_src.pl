@@ -1,5 +1,5 @@
 % DCG - Definite Clause Grammar
-# :- use_rendering(svgtree).
+:- use_rendering(svgtree).
 :- table t/3,t2/3, identifier/3,num/3.
 program(t_p(Tb)) --> block(Tb),['.'].
 block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
@@ -82,8 +82,8 @@ exp(t_exp(Str))--> str(Str).
 exp(t_exp(Num))--> num(Num).
 exp(t_exp(ID))--> identifier(ID).
 
-% STRING ::= TEMP
-str(t_str(Temp))-->['~'],temp(Temp),['~'].
+% STRING ::= "TEMP"
+str(t_str(Temp))-->['"'],temp(Temp),['"'].
 
 % TEMP ::= CH TEMP | N TEMP | CH | N
 temp(t_temp(CH))--> ch(CH).
