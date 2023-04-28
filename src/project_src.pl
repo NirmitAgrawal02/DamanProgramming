@@ -165,6 +165,21 @@ update(I,[H|T],NewVal,[H|NewEnv]) :- H\=(I,_),update(I,T,NewVal,NewEnv).
 % Character Eval
 char_eval(I,Env,Val) :- lookup(I,Env,Val).
 
+% % STRING ::= "TEMP"
+% str(t_str(Temp))-->['"'],temp(Temp),['"'].
+
+% % TEMP ::= CH TEMP | N TEMP | CH | N
+% temp(t_temp(CH))--> ch(CH).
+% temp(t_temp(Num))--> num(Num).
+% temp(t_temp(CH,Temp))--> ch(CH),temp(Temp).
+% temp(t_temp(Num,Temp))--> num(Num),temp(Temp).
+
+string_eval(t_str(Temp),Env,Val) :- temp_eval(Temp,Env,Val).
+temp_eval(t_temp(CH), Env, Val) :- char_eval(CH, Env, Val).
+temp_eval(t_temp(Num), _, Val) :- num_eval(Num, Val).
+temp_eval(t_temp(CH, Temp), Env, Val) :- char_eval(CH, Env, CH_Val), temp_eval(Temp, Env, Temp_Val), atomic_concat(CH_Val, Temp_Val, Val).
+temp_eval(t_temp(Num, Temp), Env, Val) :- num_eval(Num, Num_Val), temp_eval(Temp, Env, Temp_Val), atomic_concat(Num_Val, Temp_Val, Val).
+
 % Digit Eval
 digit_eval(Dig,Dig).
 
