@@ -174,7 +174,7 @@ ae_eval(t_t2_div(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,
 
 % block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
 
-block_eval(t_b(Td,Tc),Env,Env1) :- declaration_eval(Td,Env,ImdEnv),command(Tc,ImdEnv,Env1). 
+block_eval(t_b(Td,Tc),Env,Env1) :- declaration_eval(Td,Env,ImdEnv),command_eval(Tc,ImdEnv,Env1). 
 
 % declaration(t_ass_decl(A,D)) --> ass_variable(A),[';'],declaration(D).
 % declaration(t_decl_decl(A,D)) --> decl_variable(A),[';'],declaration(D).
@@ -195,3 +195,34 @@ ass_variable_eval(t_ass_variable_int(Tid,Tnum),Env,Env1):- digit_eval(Tid, Val),
 ass_variable_eval(t_ass_variable_bool(Tid,Tbval),Env,Env1):- bool_eval(N,Val),update(Tbval,Env,Val,Env1).
 ass_variable_eval(t_ass_variable_st(Tid,Tstr),Env,Env1):-str_eval(Tstr,Val),update(Tstr,Env,Val,Env1).
 
+% decl_variable(t_decl_variable_int(Tid)) --> ['int'],identifier(Tid).
+% decl_variable(t_decl_variable_bool(Tid)) --> ['bool'],identifier(Tid).
+% decl_variable(t_decl_variable_st(Tid)) --> ['st'],identifier(Tid).
+
+decl_variable_eval(t_decl_variable_int(_Tid),Env,Env).
+decl_variable_eval(t_decl_variable_bool(_Tid),Env,Env).
+decl_variable_eval(t_decl_variable_st(_Tid),Env,Env).
+
+% command(t_cmd(Tnc,Tcmd)) --> new_command(Tnc),[';'], command(Tcmd).
+% command(t_cmd(Tnc)) --> new_command(Tnc).
+
+command_eval(t_cmd(Tnc,Tcmd),Env,Env1):- new_command_eval(Tnv,Env,ImdEnv),command_eval(Tcmd,ImdEnv,Env1).
+command_eval(t_cmd(Tnc),Env,Env1) :- new_command_eval(Tnc,Env,Env1).
+
+
+% new_command(t_ncmd(Tid,Tae)) --> identifier(Tid),['='],ae(Tae).
+% new_command(t_ncmd_if(Tbe,Tcmd,Tcmd1)) --> ['if'],be(Tbe),['then'],command(Tcmd),['else'],command(Tcmd1),['fi'].
+% new_command(t_ncmd_while(Tbe,Tcmd)) --> ['while'],be(Tbe),['begin'],command(Tcmd),['end'].
+% new_command(C) --> ['for'],['('],['int'],identifier(Tid),['='],ae(Tae),[';'],be(Tbe),[';'],ae(Tae1),[')'],['begin'],command(Tcmd),['end'].
+% new_command(t_ncmd_for_range(Tid,Tnum1,Tnum2,Tcmd)) --> ['for'],identifier(Tid),['in'],['range'],['('],num(Tnum1),[','],num(Tnum2),[')'],['begin'],command(Tcmd),['end'].
+% new_command(t_ncmd_ternary(Tbe,Tcmd,Tcmd1)) --> be(Tbe),['?'],command(Tcmd),[':'],command(Tcmd1).
+% new_command(t_ncmd_print(Texp)) --> ['print'],['('],exp(Texp),[')'].
+
+new_command_eval(t_ncmd(Tid,Tae),Env,Env1):- ae_eval(Tae,Env,ImdEnv,Val),update(Tid,ImdEnv,Val,Env1).
+new_command_eval(t_ncmd_if(Tbe,Tcmd,_)):-booleanexpression_eval(Bexp,true,Env,ImdEnv),command_eval(Cmd,ImdEnv,Env1).
+new_command_eval(t_ncmd_if(Tbe,_,Tcmd1),Env,Env1):-booleanexpression_eval(Tbe,false,Env,ImdEnv),command_eval(Tcmd1,ImdEnv,Env1).
+new_command_eval(t_ncmd_while(Tbe,_Tcmd),Env,Env1):-booleanexpression_eval(Tbe,false,Env,Env1).
+new_command_eval(t_ncmd_while(Tbe,Tcmd),Env,Env1):- booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,ImdEnv1),new_command_eval(t_ncmd_while(Tbe,Tcmd),ImdEnv1,Env1).
+new_command_eval(t_ncmd_for_range(Tid,Tnum1,Tnum2,Tcmd),Env,Env1):-ae_eval()
+
+% new_command_eval(t_cmdblk(Tb1),Env,Env1):-block_eval(Tb1,Env,Env1).
