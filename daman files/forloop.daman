@@ -5,3 +5,6 @@ for(int y = 1; y <= x; y = y+1 )
         print(y)
     end
 finish
+
+
+[start, int, x,  =, 4,for ,( ,int, y, =, 1,;, y, <=, x, y, = ,y,+,1, ), begin,  print,(,y,), end,finish,]
