@@ -188,6 +188,21 @@ ae_eval(t_term_min(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(
 ae_eval(t_t2_prod(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1*Val2.
 ae_eval(t_t2_div(A,B),Env,NewEnv,Val) :- ae_eval(A,Env,InterEnv,Val1),ae_eval(B,InterEnv,NewEnv,Val2), Val is Val1/Val2.
 
+% % EXP ::= AE;EXP | BE;EXP | STRING; EXP | N ; EXP | I; EXP|AE | BE | STRING | N | I 
+% exp(t_exp(AE,Exp))--> ae(AE),[';'],exp(Exp).
+% exp(t_exp(BE,Exp))--> be(BE),[';'],exp(Exp).
+% exp(t_exp(Str,Exp))--> str(Str),[';'],exp(Exp).
+% exp(t_exp(AE))--> ae(AE).
+% exp(t_exp(BE))--> be(BE).
+% exp(t_exp(Str))--> str(Str).
+
+exp_eval(t_exp(AE, Exp), Env, [Val | Rest]) :- ae_eval(AE, Val), exp_eval(Exp, Env, Rest).
+exp_eval(t_exp(BE, Exp), Env, [Val | Rest]) :- booleanexpression_eval(BE, Val), exp_eval(Exp, Env, Rest).
+exp_eval(t_exp(Str, Exp), Env, [Val | Rest]) :- str_eval(Str, Env, Val), exp_eval(Exp, Env, Rest).
+
+exp_eval(t_exp(AE), _, Val) :- ae_eval(AE, Val).
+exp_eval(t_exp(BE), Env, Val) :- booleanexpression_eval(BE, Val).
+exp_eval(t_exp(Str), Env, Val) :- str_eval(Str, Env, Val).
 
 % % SUB ::= AE==AE | AE>AE | AE<AE | AE>= AE | AE<=AE | AE!= AE | not SUB | BOOL_VAL 
 % sub(t_sub_eq(AE1,AE2))--> ae(AE1),['=='],ae(AE2).
