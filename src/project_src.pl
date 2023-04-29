@@ -54,22 +54,22 @@ sub(t_sub_bool(Bool))--> bool_val(Bool).
 
 % AE ::= I:=T|T
 ae(t_ae(ID,T))--> identifier(ID),['='],t(T).
-ae(t_ae(T))--> t(T).
+ae(T)--> t(T).
 
 % T::=T + T2 | T – T2 | T2
 t(t_term_plus(T,T2))--> t(T),['+'],t2(T2).
 t(t_term_min(T,T2))--> t(T),['-'],t2(T2).
-t(t_term(T2))--> t2(T2).
+t(T2)--> t2(T2).
 
 % T2::= T2 * T3 | T2 / T3 | T3
 t2(t_t2_prod(T2,T3))--> t2(T2),['*'],t3(T3).
 t2(t_t2_div(T2,T3))--> t2(T2),['/'],t3(T3).
-t2(t_t2(T3))--> t3(T3).
+t2(T3)--> t3(T3).
 
 % T3 ::= (AE)| I |N
 t3(t_t3_par(AE))--> ['('],ae(AE),[')'].
-t3(t_t3(ID))--> identifier(ID).
-t3(t_t3(Num))--> num(Num).
+t3(t_identifier(ID))--> identifier(ID).
+t3(t_num(Num))--> num(Num).
 
 % EXP ::= AE;EXP | BE;EXP | STRING; EXP | AE | BE | STRING
 exp(t_exp(AE,Exp))--> ae(AE),[';'],exp(Exp).
@@ -99,7 +99,7 @@ bool_val(false)--> ['false'].
 identifier(I) --> [I], {atom(I)}.
 
 % N ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-num(N) --> [N], {number(N)}.
+num(N) --> [N], {integer(N)}.
 
 
 
@@ -119,7 +119,7 @@ update(I,[H|T],NewVal,[H|NewEnv]) :- H\=(I,_),update(I,T,NewVal,NewEnv).
 
 % Program Evaluator
 
-program_eval(t_p(A),X,Y,Z) :- update(x,[],X,Env1), update(y,Env1,Y,Env2), update(z,Env2,0,Env3), block_eval(A,Env3,Env4), lookup(z,Env4,Z).
+program_eval(t_p(A),EnvOut) :- block_eval(A,[],EnvOut).
 
 % block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
 
@@ -131,8 +131,8 @@ block_eval(t_b(Td,Tc),Env,Env1) :- declaration_eval(Td,Env,ImdEnv),command_eval(
 % declaration(t_ass_decl(A)) --> ass_variable(A).
 % declaration(t_decl_decl(A)) --> decl_variable(A).
 
-declaration_eval(t_ass_decl(A,D),Env,Env1):- ass_variable_eval(A,Env,ImdEnv),declaration(D,ImdEnv,Env1).
-declaration_eval(t_decl_decl(A,D),Env,Env1) :- decl_variable_eval(A,Env,ImdEnv),declaration(D,ImdEnv,Env1).
+declaration_eval(t_ass_decl(A,D),Env,Env1):- ass_variable_eval(A,Env,ImdEnv),declaration_eval(D,ImdEnv,Env1).
+declaration_eval(t_decl_decl(A,D),Env,Env1) :- decl_variable_eval(A,Env,ImdEnv),declaration_eval(D,ImdEnv,Env1).
 declaration_eval(t_ass_decl(A),Env,Env1):- ass_variable_eval(A,Env,Env1).
 declaration_eval(t_decl_decl(A),Env,Env1) :- decl_variable_eval(A,Env, Env1).
 
@@ -165,7 +165,7 @@ command_eval(t_cmd(Tnc),Env,Env1) :- new_command_eval(Tnc,Env,Env1).
 % new_command(t_ncmd_for(Tid,Tae,Tbe,Tae1,Tcmd)) --> ['for'],['('],['int'],identifier(Tid),['='],ae(Tae),[';'],be(Tbe),[';'],ae(Tae1),[')'],['begin'],command(Tcmd),['end'].
 % new_command(t_ncmd_for_range(Tid,Tnum1,Tnum2,Tcmd)) --> ['for'],identifier(Tid),['in'],['range'],['('],num(Tnum1),[','],num(Tnum2),[')'],['begin'],command(Tcmd),['end'].
 % new_command(t_ncmd_ternary(Tbe,Tcmd,Tcmd1)) --> be(Tbe),['?'],command(Tcmd),[':'],command(Tcmd1).
-% new_command(t_ncmd_print(Texp)) --> ['print'],['('],exp(Texp),[')'].
+% new_command(t_ncmd_print(Texp)) --> ['print'],['('],exp(Texp),[')'],nl.
 
 new_command_eval(t_ncmd(Tid,Tae),Env,Env1):- ae_eval(Tae,Env,ImdEnv,Val),update(Tid,ImdEnv,Val,Env1).
 new_command_eval(t_ncmd_if(Tbe,Tcmd,_),Env,Env1):-booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,Env1).
@@ -183,9 +183,9 @@ new_command_eval(t_ncmd_print(Texp),Env,Env1):-exp_eval(Texp,Env,Env1).
 new_command_eval(t_cmdblk(Tb1),Env,Env1):-block_eval(Tb1,Env,Env1).
 
 % BE ::= SUB and BE | SUB or BE | SUB
-be(t_be_and(Sub,BE))--> sub(Sub),['and'],be(BE).
-be(t_be_or(Sub,BE))--> sub(Sub),['or'],be(BE).
-be(t_be(Sub))--> sub(Sub).
+% be(t_be_and(Sub,BE))--> sub(Sub),['and'],be(BE).
+% be(t_be_or(Sub,BE))--> sub(Sub),['or'],be(BE).
+% be(t_be(Sub))--> sub(Sub).
 
 booleanexpression_eval(t_be_and(Sub, BE), Val,Env,Env1) :- sub_eval(Sub, Sub_Val,Env,ImdEnv), booleanexpression_eval(BE, BE_Val,ImdEnv,Env1), Val = (Sub_Val, BE_Val).
 booleanexpression_eval(t_be_or(Sub,BE),Val,Env,Env1) :- sub_eval(Sub, Sub_Val,Env,ImdEnv), booleanexpression_eval(BE, BE_Val,ImdEnv,Env1), Val = (Sub_Val; BE_Val).
@@ -211,13 +211,13 @@ sub_eval(t_sub_not(Sub), Val,Env,Env1) :- sub_eval(Sub, Sub_Val,Env,Env1), Val =
 sub_eval(t_sub_bool(Bool), Val,Env,Env) :- Val = Bool.
 
 % ae(t_ae(ID,T))--> identifier(ID),['='],t(T).
-% ae(t_ae(T))--> t(T).
+% ae(T)--> t(T).
 % t(t_term_plus(T,T2))--> t(T),['+'],t2(T2).
 % t(t_term_min(T,T2))--> t(T),['-'],t2(T2).
-% t(t_term(T2))--> t2(T2).
+% t(T2)--> t2(T2).
 % t2(t_t2_prod(T2,T3))--> t2(T2),['*'],t3(T3).
 % t2(t_t2_div(T2,T3))--> t2(T2),['/'],t3(T3).
-% t2(t_t2(T3))--> t3(T3).
+% t2(T3)--> t3(T3).
 % t3(t_t3_par(AE))--> ['('],ae(AE),[')'].
 % t3(t_t3(ID))--> identifier(ID).
 % t3(t_t3(Num))--> num(Num).
