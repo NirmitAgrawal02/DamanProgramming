@@ -4,6 +4,7 @@
 
 Daman is a simple programming language created as part of a project for a programming languages course. It is designed to be easy to learn and use for beginners while still providing basic programming constructs.
 
+Repo Link - [https://github.com/NirmitAgrawal02/SER502-Spring2023-Team-41-](#https://github.com/NirmitAgrawal02/SER502-Spring2023-Team-41-)
 
 ## Table of Contents
 
@@ -66,13 +67,11 @@ The source code is available under the [MIT license](https://github.com/bitcooki
 
 ### Technologies & Languages
 
-![CSS](https://img.shields.io/badge/-CSS3-blue?style=flat-round&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-round&logo=javascript)
+![Prolog](https://img.shields.io/badge/-Prolog-red?style=flat-round&logo=Prolog)
 ![Python](https://img.shields.io/badge/-Python-black?style=flat-round&logo=Python)
 
 ### Libraries & Frameworks
 
-![Node.js](https://img.shields.io/badge/-Node-026E00?style=flat-round&logo=node)
 ![Flask](https://img.shields.io/badge/-Flask-blue?style=flat-round&logo=flask)
 ![Sklearn](https://img.shields.io/badge/-sklearn-E45826?style=flat-round&logo=Sklearn)
 ![BeautifulSoup](https://img.shields.io/badge/-BeautifulSoup-C65D7B?style=flat-round&logo=BeautifulSoup)
