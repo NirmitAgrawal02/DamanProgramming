@@ -66,7 +66,7 @@ The source code is available under the [MIT license](https://github.com/bitcooki
 
 ### Technologies & Languages
 
-![Prolog](https://plugins.jetbrains.com/files/13954/290585/icon/pluginIcon.png)
+![Prolog](https://img.shields.io/badge/-Prolog-black?style=flat-round&logo=Prolog)
 ![Python](https://img.shields.io/badge/-Python-black?style=flat-round&logo=Python)
 
 ### Libraries & Frameworks
