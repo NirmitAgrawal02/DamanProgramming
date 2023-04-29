@@ -179,21 +179,20 @@ new_command_eval(t_ncmd_for(_,Tbe,_,_),Env,Env1):- booleanexpression_eval(Tbe,fa
 new_command_eval(t_ncmd_for(Tid,Tbe,Tae1,Tcmd),Env,Env1):- booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,ImdEnv4),ae_eval(Tae1,ImdEnv4,ImdEnv5,Val1),update(Tid,ImdEnv5,Val1,ImdEnv6),new_command_eval(t_ncmd_for(Tid,Tae1,Tbe,Tae1,Tcmd),ImdEnv6,Env1).
 
 
-new_command_eval(t_ncmd_for_range(Tid,Tnum1,Tnum2,_),Env,Env1):- update(Tid,Env,Tnum1,ImdEnv),check_boolean_expresson_for(Tid,Tnum2,false,ImdEnv,Env1).
-new_command_eval(t_ncmd_for_range(Tid,Tnum1,Tnum2,Tcmd),Env,Env1):- update(Tid,Env,Tnum1,ImdEnv),check_boolean_expresson_for(Tid,Tnum2,true,ImdEnv,ImdEnv1),command_eval(Tcmd,ImdEnv1,ImdEnv2),increment_expression_for(Tid,ImdEnv2,ImdEnv3),new_command_eval(t_ncmd_for_range(Tid,Tnum2,Tcmd),ImdEnv3,Env1).
-new_command_eval(t_ncmd_for_range(Tid,Tnum2,_),Env,Env1):-check_boolean_expresson_for(Tid,Tnum2,false,Env,Env1).
-new_command_eval(t_ncmd_for_range(Tid,Tnum2,Tcmd),ImdEnv,Env1):-check_boolean_expresson_for(Tid,Tnum2,true,ImdEnv,ImdEnv1),command_eval(Tcmd,ImdEnv1,ImdEnv2),increment_expression_for(Tid,ImdEnv2,ImdEnv3),new_command_eval(t_ncmd_for_range(Tid,Tnum2,Tcmd),ImdEnv3,Env1).
+new_command_eval(t_ncmd_for_range(Tid,Tnum1,Tnum2,_),Env,Env1):- update(Tid,Env,Tnum1,Env1),check_boolean_expresson_for(Tid,Tnum2,false,Env1).
+new_command_eval(t_ncmd_for_range(Tid,Tnum1,Tnum2,Tcmd),Env,Env1):- update(Tid,Env,Tnum1,ImdEnv),check_boolean_expresson_for(Tid,Tnum2,true,ImdEnv),command_eval(Tcmd,ImdEnv,ImdEnv2),increment_expression_for(Tid,ImdEnv2,ImdEnv2,Val),update(Tid,ImdEnv2,Val,ImdEnv3),new_command_eval(t_ncmd_for_range(Tid,Val,Tnum2,Tcmd),ImdEnv3,Env1).
+
 new_command_eval(t_ncmd_ternary(Tbe,Tcmd,_Tcmd1),Env,Env1):- booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,Env1).
 new_command_eval(t_ncmd_ternary(Tbe,_Tcmd,Tcmd1),Env,Env1):- booleanexpression_eval(Tbe,false,Env,ImdEnv),command_eval(Tcmd1,ImdEnv,Env1).
-new_command_eval(t_ncmd_print(Texp),Env,Env1):-exp_eval(Texp,Env,Env1).
+new_command_eval(t_ncmd_print(Texp),Env,Env1):-nl,exp_eval(Texp,Env,Env1).
 new_command_eval(t_cmdblk(Tb1),Env,Env1):-block_eval(Tb1,Env,Env1).
 
 % Check Boolean Expression for i in range
 
-check_boolean_expresson_for(A,B,true,Env,Env):- lookup(A,Env,Val),Val < B.
-check_boolean_expresson_for(A,B,false,Env,Env):- lookup(A,Env,Val),Val > B.
+check_boolean_expresson_for(A,B,true,Env):- lookup(A,Env,Val),Val < B.
+check_boolean_expresson_for(A,B,false,Env):- lookup(A,Env,Val),Val > B.
 
-increment_expression_for(A,Env,Env1):- lookup(A,Env,Val1),Val is Val1 + 1,update(A,Env,Val,Env1).
+increment_expression_for(A,Env,Env,Val):- lookup(A,Env,Val1),Val is Val1 + 1.
 
 % % EXP ::= AE;EXP | BE;EXP | STRING; EXP | AE | BE | STRING 
 % exp(t_exp(AE,Exp))--> ae(AE),[';'],exp(Exp).
