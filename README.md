@@ -27,48 +27,59 @@ To use Daman, you need to have Python 3 installed on your system. The following 
 The Daman programming language uses a simple syntax that is easy to understand. Here is an example program that prints the sum of two numbers:
 
 go
-Copy code
+`
 start
     int x = 5;
     int y = 10;
     int z = x + y;
     print(z);
 finish.
-
+`
 
 To run a Daman program, use the following command:
 
-...
+`python daman.py <filename>.daman`
 
-```php
-python daman.py <filename>.daman
-Features
+
+## Features:
+
 Daman supports the following features:
 
-Variables (int, bool, string)
-Arithmetic operators (+, -, *, /)
-Comparison operators (>, <, >=, <=, ==, !=)
-Boolean operators (and, or, not)
-Conditional statements (if, else, fi)
-Loops (while, for, in, range)
-Input/output statements (print)
+- Variables (int, bool, string)
+- Arithmetic operators (+, -, *, /)
+- Comparison operators (>, <, >=, <=, ==, !=)
+- Boolean operators (and, or, not)
+- Conditional statements (if, else, fi)
+- Loops (while, for, in, range)
+- Input/output statements (print)
 
 
 ## Contributing
 
-Instructions on how to contribute to the project, code of conduct, and the process for submitting pull requests.
+Contributions are welcome! If you find a bug or have an idea for a new feature, please open an issue on the Github repository. If you would like to contribute code, please open a pull request.
+
+## Reach out to us on:
+
+[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-round&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alok-rajpurohit-1941461a3/)](https://www.linkedin.com/in/alok-rajpurohit-1941461a3/)
+[![Twitter Badge](https://img.shields.io/badge/-Twitter-blue?style=flat-round&logo=Twitter&logoColor=white&link=https://twitter.com/AlokPur32580593)](https://twitter.com/AlokPur32580593)
+[![Gmail Badge](https://img.shields.io/badge/-Gmail-c14438?style=flat-round&logo=Gmail&logoColor=white&link=mailto:saloniguptasg12@gmail.com)](mailto:alokpurohit18@gmail.com)
 
 ## License
 
-Information about the project's license.
+The source code is available under the [MIT license](https://github.com/bitcookies/winrar-keygen/blob/master/LICENSE)
 
 
+### Technologies & Languages :
 
+![CSS](https://img.shields.io/badge/-CSS3-blue?style=flat-round&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-round&logo=javascript)
+![Python](https://img.shields.io/badge/-Python-black?style=flat-round&logo=Python)
 
-Usage
+### Libraries & Frameworks :
 
-Contributing
-Contributions are welcome! If you find a bug or have an idea for a new feature, please open an issue on the Github repository. If you would like to contribute code, please open a pull request.
+![Node.js](https://img.shields.io/badge/-Node-026E00?style=flat-round&logo=node)
+![Flask](https://img.shields.io/badge/-Flask-blue?style=flat-round&logo=flask)
+![Sklearn](https://img.shields.io/badge/-sklearn-E45826?style=flat-round&logo=Sklearn)
+![BeautifulSoup](https://img.shields.io/badge/-BeautifulSoup-C65D7B?style=flat-round&logo=BeautifulSoup)
+![Selenium](https://img.shields.io/badge/-Selenium-black?style=flat-round&logo=selenium)
 
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
