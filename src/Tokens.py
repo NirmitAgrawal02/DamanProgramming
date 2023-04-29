@@ -44,6 +44,8 @@ def get_tokens(file):
                         final_op += "'.',"
                     elif val.isdigit():
                         final_op += val +","
+                    elif val.isalpha():
+                        final_op += "'"+val+"',"
     final_op = final_op[:-1]
     final_op += "]"
     print(final_op)
