@@ -1,6 +1,6 @@
 L = ['start','int', 'x',';','x',=,5,'finish', '.'], program(Tb, L, []).
 L = ['start',bool,'x',=,'true',';','int', 'y', '=' ,5,';' ,'x' ,'=' ,6,'finish', '.'], program(Tb, L, []).
-L = ['start','int','x',';','int', 'y', '=' ,'5',';' ,'y' ,'=' ,'6','finish', '.'], program(Tb, L, []).
+L = ['start','int','x',';','int', 'y', '=' ,5,';' ,'y' ,'=' ,6,'finish', '.'], program(Tb, L, []).
 L = ['start', 'int', 'x', '=', 8, ';', 'int', 'y',=,2, ';', 'int', 'z', ';', 'y','=',4,  'finish', '.'], program(P, L, []).
 L = ['start', 'int', 'x', '=', '8', ';', 'int', 'y','=','2', ';', 'int', 'z', ';', 'y','=','4',';','z','=','x','+','y',  'finish', .], program(P, L, [])
 L = ['start','st','x',';','int', 'y', '=' ,5,';' ,y ,= ,6,'finish', '.'], program(Tb, L, []).
