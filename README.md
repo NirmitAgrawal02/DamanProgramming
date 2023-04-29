@@ -6,7 +6,6 @@ Daman is a simple programming language created as part of a project for a progra
 
 Repo Link - [https://github.com/NirmitAgrawal02/SER502-Spring2023-Team-41-](#https://github.com/NirmitAgrawal02/SER502-Spring2023-Team-41-)
 
-
 ## Table of Contents
 
 - [GettingStarted](#gettingstarted)
