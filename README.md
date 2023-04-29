@@ -5,14 +5,12 @@
 Daman is a simple programming language created as part of a project for a programming languages course. It is designed to be easy to learn and use for beginners while still providing basic programming constructs.
 
 
-
 ## Table of Contents
 
 - [Installation](#gettingstarted)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
-
 
 
 ## GettingStarted
@@ -30,21 +28,20 @@ To use Daman, you need to have Python 3 installed on your system. The following 
 The Daman programming language uses a simple syntax that is easy to understand. Here is an example program that prints the sum of two numbers:
 
 go
-`
-start
-    int x = 5;
-    int y = 10;
-    int z = x + y;
-    print(z);
-finish.
-`
+`start`
+`int x = 5;`
+`int y = 10;`
+`int z = x + y;`
+`print(z);`
+`finish.`
+
 
 To run a Daman program, use the following command:
 
 `python daman.py <filename>.daman`
 
 
-## Features:
+## Features
 
 Daman supports the following features:
 
@@ -61,11 +58,6 @@ Daman supports the following features:
 
 Contributions are welcome! If you find a bug or have an idea for a new feature, please open an issue on the Github repository. If you would like to contribute code, please open a pull request.
 
-## Reach out to us on:
-
-[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-round&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alok-rajpurohit-1941461a3/)](https://www.linkedin.com/in/alok-rajpurohit-1941461a3/)
-[![Twitter Badge](https://img.shields.io/badge/-Twitter-blue?style=flat-round&logo=Twitter&logoColor=white&link=https://twitter.com/AlokPur32580593)](https://twitter.com/AlokPur32580593)
-[![Gmail Badge](https://img.shields.io/badge/-Gmail-c14438?style=flat-round&logo=Gmail&logoColor=white&link=mailto:saloniguptasg12@gmail.com)](mailto:alokpurohit18@gmail.com)
 
 ## License
 
@@ -86,3 +78,9 @@ The source code is available under the [MIT license](https://github.com/bitcooki
 ![BeautifulSoup](https://img.shields.io/badge/-BeautifulSoup-C65D7B?style=flat-round&logo=BeautifulSoup)
 ![Selenium](https://img.shields.io/badge/-Selenium-black?style=flat-round&logo=selenium)
 
+
+### Reach out to us on:
+
+[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-round&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alok-rajpurohit-1941461a3/)](https://www.linkedin.com/in/alok-rajpurohit-1941461a3/)
+[![Twitter Badge](https://img.shields.io/badge/-Twitter-blue?style=flat-round&logo=Twitter&logoColor=white&link=https://twitter.com/AlokPur32580593)](https://twitter.com/AlokPur32580593)
+[![Gmail Badge](https://img.shields.io/badge/-Gmail-c14438?style=flat-round&logo=Gmail&logoColor=white&link=mailto:saloniguptasg12@gmail.com)](mailto:alokpurohit18@gmail.com)
