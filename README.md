@@ -24,7 +24,35 @@ To use Daman, you need to have Python 3 installed on your system. The following 
 
 ## Usage
 
-Instructions on how to use the project.
+The Daman programming language uses a simple syntax that is easy to understand. Here is an example program that prints the sum of two numbers:
+
+go
+Copy code
+start
+    int x = 5;
+    int y = 10;
+    int z = x + y;
+    print(z);
+finish.
+
+
+To run a Daman program, use the following command:
+
+...
+
+```php
+python daman.py <filename>.daman
+Features
+Daman supports the following features:
+
+Variables (int, bool, string)
+Arithmetic operators (+, -, *, /)
+Comparison operators (>, <, >=, <=, ==, !=)
+Boolean operators (and, or, not)
+Conditional statements (if, else, fi)
+Loops (while, for, in, range)
+Input/output statements (print)
+
 
 ## Contributing
 
@@ -38,31 +66,7 @@ Information about the project's license.
 
 
 Usage
-The Daman programming language uses a simple syntax that is easy to understand. Here is an example program that prints the sum of two numbers:
 
-go
-Copy code
-start
-    int x = 5;
-    int y = 10;
-    int z = x + y;
-    print(z);
-finish.
-To run a Daman program, use the following command:
-
-php
-Copy code
-python daman.py <filename>.daman
-Features
-Daman supports the following features:
-
-Variables (int, bool, string)
-Arithmetic operators (+, -, *, /)
-Comparison operators (>, <, >=, <=, ==, !=)
-Boolean operators (and, or, not)
-Conditional statements (if, else, fi)
-Loops (while, for, in, range)
-Input/output statements (print)
 Contributing
 Contributions are welcome! If you find a bug or have an idea for a new feature, please open an issue on the Github repository. If you would like to contribute code, please open a pull request.
 
