@@ -67,7 +67,7 @@ t2(t_t2_div(T2,T3))--> t2(T2),['/'],t3(T3).
 t2(T3)--> t3(T3).
 
 % T3 ::= (AE)| I |N
-t3(t_exprbrkt(AE))--> ['('],ae(AE),[')'].
+t3(t_t3_par(AE))--> ['('],ae(AE),[')'].
 t3(t_identifier(ID))--> identifier(ID).
 t3(t_num(Num))--> num(Num).
 
@@ -223,7 +223,7 @@ booleanexpression_eval(t_sub_greaterthan(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1
 booleanexpression_eval(t_sub_lessthan(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1,Env,ImdEnv, Val1), ae_eval(AE2,ImdEnv,Env1, Val2), check_bool_less_than(Val1,Val2,Val).
 booleanexpression_eval(t_sub_gteqto(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1,Env,ImdEnv, Val1), ae_eval(AE2,ImdEnv,Env1, Val2), check_bool_gteq(Val1,Val2,Val).
 booleanexpression_eval(t_sub_lteqto(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1,Env,ImdEnv, Val1), ae_eval(AE2,ImdEnv,Env1, Val2), check_bool_lteq(Val1,Val2,Val).
-booleanexpression_eval(t_sub_noteq(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1,Env,ImdEnv, Val1), ae_eval(AE2,ImdEnv,Env1, Val2), Val is (Val1 \= Val2).
+booleanexpression_eval(t_sub_noteq(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1,Env,ImdEnv, Val1), ae_eval(AE2,ImdEnv,Env1, Val2), check_bool_equal(Val1,Val2,Val3),opp_eval(Val3,Val).
 booleanexpression_eval(t_sub_bool(true), true,Env,Env).
 booleanexpression_eval(t_sub_bool(false), false,Env,Env).
 and_eval(true,true,true).
