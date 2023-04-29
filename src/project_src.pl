@@ -165,7 +165,7 @@ command_eval(t_cmd(Tnc),Env,Env1) :- new_command_eval(Tnc,Env,Env1).
 % new_command(t_ncmd_for(Tid,Tae,Tbe,Tae1,Tcmd)) --> ['for'],['('],['int'],identifier(Tid),['='],ae(Tae),[';'],be(Tbe),[';'],ae(Tae1),[')'],['begin'],command(Tcmd),['end'].
 % new_command(t_ncmd_for_range(Tid,Tnum1,Tnum2,Tcmd)) --> ['for'],identifier(Tid),['in'],['range'],['('],num(Tnum1),[','],num(Tnum2),[')'],['begin'],command(Tcmd),['end'].
 % new_command(t_ncmd_ternary(Tbe,Tcmd,Tcmd1)) --> be(Tbe),['?'],command(Tcmd),[':'],command(Tcmd1).
-% new_command(t_ncmd_print(Texp)) --> ['print'],['('],exp(Texp),[')'].
+% new_command(t_ncmd_print(Texp)) --> ['print'],['('],exp(Texp),[')'],nl.
 
 new_command_eval(t_ncmd(Tid,Tae),Env,Env1):- ae_eval(Tae,Env,ImdEnv,Val),update(Tid,ImdEnv,Val,Env1).
 new_command_eval(t_ncmd_if(Tbe,Tcmd,_),Env,Env1):-booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,Env1).
