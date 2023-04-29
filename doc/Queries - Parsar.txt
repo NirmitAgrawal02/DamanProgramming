@@ -1,32 +1,28 @@
-
-*****Queries*****
-
-
-L = ['start','int', 'x',';','x',=,'5','finish', .], program(Tb, L, []).
-L = ['start',bool,'x',=,'true',';','int', 'y', = ,'5',';' ,'x' ,= ,'6','finish', .], program(Tb, L, []).
-L = ['start','int','x',';','int', 'y', = ,'5',';' ,'y' ,= ,'6','finish', .], program(Tb, L, []).
-L = ['start', 'int', 'x', =, 8, ';', 'int', 'y',=,'2', ';', 'int', z, ';', 'y',=,4,  'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8, ';', 'int', 'y',=,'2', ';', 'int', z, ';', 'y',=,4,';',z,=,'x','+','y',  'finish', .], program(P, L, [])
-L = ['start',st,'x',';','int', 'y', = ,'5',';' ,'y' ,= ,'6','finish', .], program(Tb, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'if','x','==',8 , 'then'\,  'x', =, 7, 'else', z , = , 0 , fi,  'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'if','x','>',8 , 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'if','x','<',8 , 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'if','x','>'=,8 , 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'if','x','<'=,8 , 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'if','x','<>',8 , 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'if',not,'x','==',8 , 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'if','true', 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'while' , 'true' ,'begin', 'x',= , 'x', '+' , '1' , 'end', 'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'while' , 'x' , '==' , 8 ,'begin', 'x',= , 'x', '+' , '1' , 'end', 'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'x' ,'==', 8, '?' , 'x',=,'x','+','1' ,: ,'x',=,'x','+','2', 'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'true',  '?' , 'x',=,'x','+','1' ,: ,'x',=,'x','+','2', 'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', false,  '?' , 'x',=,'x','+','1' ,: ,'x',=,'x','+','2', 'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'x','<','2',and,'x','>','9',  '?' , 'x',=,'x','+','1' ,: ,'x',=,'x','+','2', 'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'x','<','2',or,'x','>','9',  '?' , 'x',=,'x','+','1' ,: ,'x',=,'x','+','2', 'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'x','<','2',or,'x','>','9',  '?' , 'x',=,'x',-,'1' ,: ,'x',=,'x',-,'2', 'finish', .], program(P, L, []).
-L = ['start', 'int', 'x', =, 8,';', 'x','<','2',or,'x','>','9',  '?' , 'x',=,'x',*,'1' ,: ,'x',=,'x',/,'2', 'finish', .], program(P, L, []).
+L = ['start','int', 'x',';','x',=,'5','finish', '.'], program(Tb, L, []).
+L = ['start',bool,'x',=,'true',';','int', 'y', '=' ,5,';' ,'x' ,'=' ,6,'finish', '.'], program(Tb, L, []).
+L = ['start','int','x',';','int', 'y', '=' ,'5',';' ,'y' ,'=' ,'6','finish', '.'], program(Tb, L, []).
+L = ['start', 'int', 'x', '=', 8, ';', 'int', 'y',=,2, ';', 'int', 'z', ';', 'y','=',4,  'finish', '.'], program(P, L, []).
+L = ['start', 'int', 'x', '=', '8', ';', 'int', 'y','=','2', ';', 'int', 'z', ';', 'y','=','4',';','z','=','x','+','y',  'finish', .], program(P, L, [])
+L = ['start','st','x',';','int', 'y', '=' ,5,';' ,y ,= ,6,'finish', '.'], program(Tb, L, []).
+L = ['start', 'int', 'x', =, '8',';', 'if','x','==','8' , 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', '.'], program(P, L, []).
+L = ['start', 'int', 'x', '=', 8,';', 'if','x','>',8 , 'then',  'x', =, 7, 'else', 'z' , = , 0 , fi,  'finish', .], program(P, L, []).
+L = ['start', 'int', 'x', =, '8',';', 'if','x','<','8' , 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', '.'], program(P, L, []).
+L = ['start', 'int', 'x', '=', 8,';', 'if','x','>'=,8 , 'then',  'x', =, 7, 'else', 'z' , = , 0 , fi,  'finish', '.'], program(P, L, []).
+L = ['start', 'int', 'x', '=', '8',';', 'if','x','<'=,'8' , 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', .], program(P, L, []).
+L = ['start', 'int', 'x', '=', 8,';', 'if','x','<>',8 , 'then',  'x', =, 7, 'else', 'z' , '=' , 0 , 'fi',  'finish', '.'], program(P, L, []).
+L = ['start', 'int', 'x', '=', '8',';', 'if',not,'x','==','8' , 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', .], program(P, L, []).
+L = ['start', 'int', 'x', '=', '8',';', 'if','true', 'then',  'x', '=', '7', 'else', 'z' , '=' , 0 , 'fi',  'finish', '.'], program(P, L, []).
+L = ['start', 'int', 'x', '=', '8',';', 'while' , 'true' ,'begin', 'x',= , 'x', '+' , '1' , 'end', 'finish', .], program(P, L, []).
+L = ['start', 'int', 'x', '=', '8',';', 'while' , 'x' , '==' , '8' ,'begin', 'x',= , 'x', '+' , '1' , 'end', 'finish', .], program(P, L, []).
+L = ['start', 'int', 'x', =, '8',';', 'x' ,'==', '8', '?' , 'x',=,'x','+','1' ,: ,'x',=,'x','+','2', 'finish', .], program(P, L, []).
+L = ['start', 'int', 'x', =, '8',';', 'true',  '?' , 'x',=,'x','+','1' ,: ,'x',=,'x','+','2', 'finish', .], program(P, L, []).
+L = ['start', 'int', 'x', =, '8',';', false,  '?' , 'x',=,'x','+','1' ,: ,'x',=,'x','+','2', 'finish', .], program(P, L, []).
+L = ['start', 'int', 'x', =, '8',';', 'x','<','2',and,'x','>','9',  '?' , 'x',=,'x','+','1' ,: ,'x',=,'x','+','2', 'finish', .], program(P, L, []).
+L = ['start', 'int', 'x', =, '8',';', 'x','<','2',or,'x','>','9',  '?' , 'x',=,'x','+','1' ,: ,'x',=,'x','+','2', 'finish', .], program(P, L, []).
+L = ['start', 'int', 'x', =, '8',';', 'x','<','2',or,'x','>','9',  '?' , 'x',=,'x',-,'1' ,: ,'x',=,'x',-,'2', 'finish', .], program(P, L, []).
+L = ['start', 'int', 'x', =, '8',';', 'x','<','2',or,'x','>','9',  '?' , 'x',=,'x',*,'1' ,: ,'x',=,'x',/,'2', 'finish', .], program(P, L, []).
 L = ['start','int','y',=,0,';','for','(','int','x',=,0,';','x','<','5',';','x',=,'x','+','1',')','begin','y',=,'y','+','1','end','finish', .], program(Tb, L, []).
 L = ['start','int','y',=,0,';', pr'int' , '(', 'y' , ')','finish', .], program(Tb, L, []).
 L = ['start', 'int', 'x', =, 3,';', 'for','x',in,range,'(',0,',','5',')','begin','x',=,'x',''+'','1','end','finish', .], program(P, L, []).
 L = ['start',st,'x', =, '"' ,a,r,t,3,'"',';','int', 'y', = ,'5',';' ,'y' ,= ,''6'','finish', .], program(Tb, L, []).
-L = ['start', 'int', 'x', =, 8,';', ''if'','x','!=',8 , 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', .], program(P, L, []).
+L = ['start', 'int', 'x', =, '8',';', ''if'','x','!=','8' , 'then',  'x', =, 7, 'else', z , = , 0 , fi,  'finish', .], program(P, L, []).
