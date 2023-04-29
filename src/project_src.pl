@@ -131,8 +131,8 @@ block_eval(t_b(Td,Tc),Env,Env1) :- declaration_eval(Td,Env,ImdEnv),command_eval(
 % declaration(t_ass_decl(A)) --> ass_variable(A).
 % declaration(t_decl_decl(A)) --> decl_variable(A).
 
-declaration_eval(t_ass_decl(A,D),Env,Env1):- ass_variable_eval(A,Env,ImdEnv),declaration(D,ImdEnv,Env1).
-declaration_eval(t_decl_decl(A,D),Env,Env1) :- decl_variable_eval(A,Env,ImdEnv),declaration(D,ImdEnv,Env1).
+declaration_eval(t_ass_decl(A,D),Env,Env1):- ass_variable_eval(A,Env,ImdEnv),declaration_eval(D,ImdEnv,Env1).
+declaration_eval(t_decl_decl(A,D),Env,Env1) :- decl_variable_eval(A,Env,ImdEnv),declaration_eval(D,ImdEnv,Env1).
 declaration_eval(t_ass_decl(A),Env,Env1):- ass_variable_eval(A,Env,Env1).
 declaration_eval(t_decl_decl(A),Env,Env1) :- decl_variable_eval(A,Env, Env1).
 
