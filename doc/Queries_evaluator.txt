@@ -16,3 +16,4 @@ program(P, [start, int, x, = ,2, ;, x, == ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+
 
 3. For loop:
 program(P, [start,int,y,=,0,;,for,'(',int,x,=,0,;,x,<=,2,;,x,=,x,+,1,')',begin,y,=,y,+,1,end,finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start,int,y,=,0,;,for,'(',int,x,=,0,;,x,<=,2,;,x,=,x,+,1,')',begin,y,=,y,+,1,;, print , '(' , y , ')',end,finish, .], []), write(P), program_eval(P,EnvOut).
