@@ -260,13 +260,9 @@ str_eval(t_str(Temp),Env,Val) :- temp_eval(Temp,Env,Val).
 
 temp_eval(t_temp(CH), Env, Val) :- identifier_eval(CH, Env, Val).
 temp_eval(t_temp(Num), _, Val) :- num_eval(Num, Val).
-<<<<<<< HEAD
-temp_eval(t_temp(CH, Temp), Env, Val) :- identifier_eval(CH, Env, CH_Val), temp_eval(Temp, Env, Temp_Val), atomic_concat(CH_Val,Temp_Val, Val).
-temp_eval(t_temp(Num, Temp), Env, Val) :- num_eval(Num, Num_Val), temp_eval(Temp, Env, Temp_Val), atomic_concat(Num_Val,Temp_Val, Val).
-=======
+
 temp_eval(t_temp(CH, Temp), Env, Val) :- identifier_eval(CH, Env, CH_Val), temp_eval(Temp, Env, Temp_Val), atomic_concat(Temp_Val,CH_Val, Val).
 temp_eval(t_temp(Num, Temp), Env, Val) :- num_eval(Num, Num_Val), temp_eval(Temp, Env, Temp_Val), atomic_concat(Temp_Val,Num_Val, Val).
->>>>>>> 2c6c9c6f4babb940e9d897a148c0440b32cfd789
 
 
 % bool_val(true)--> ['true'].
@@ -281,7 +277,3 @@ identifier_eval(I,Env,Val) :- lookup(I,Env,Val).
 
 % Digit Eval
 num_eval(Dig,Dig).
-<<<<<<< HEAD
-=======
-
->>>>>>> 2c6c9c6f4babb940e9d897a148c0440b32cfd789
