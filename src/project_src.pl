@@ -210,6 +210,8 @@ exp_eval(t_exp(BE),Env,Env1) :- booleanexpression_eval(BE,Val,Env,Env1),write(Va
 exp_eval(t_exp(Str), Env, Env) :- str_eval(Str, Env, Val),write(Val),nl.
 
 
+
+if ((x == 5) and (x == 7))
 % BE ::= SUB and BE | SUB or BE | SUB
 % be(t_be_and(Sub,BE))--> sub(Sub),['and'],be(BE).
 % be(t_be_or(Sub,BE))--> sub(Sub),['or'],be(BE).
@@ -252,11 +254,10 @@ check_bool_equal(A,B,true):-A = B.
 check_bool_equal(A,B,false):-A\=B.
 
 check_bool_less_than(A,B,true):- A < B.
-check_bool_less_than(A,B,false):- A > B.
-
+check_bool_less_than(A,B,false):- A >= B.
 
 check_bool_greater_than(A,B,true):- A > B.
-check_bool_greater_than(A,B,false):- A < B.
+check_bool_greater_than(A,B,false):- A =< B.
 
 check_bool_lteq(A,B,true):-A =< B.
 check_bool_lteq(A,B,false):-A >= B.
