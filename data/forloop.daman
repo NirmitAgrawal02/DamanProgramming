@@ -1,10 +1,11 @@
 start
-int x  = 4
-for(int y = 1; y <= x; y = y+1 )
-    begin
-        print(y)
-    end
-finish
+    int x = 10;
+    x > 2 ? x = x+1 : x=x-2
+    print(x)
+finish.
 
-
-[start, int, x,  =, 4,for ,( ,int, y, =, 1,;, y, <=, x, y, = ,y,+,1, ), begin,  print,(,y,), end,finish,]
+start
+    int x = 10;
+    x > 2 ? x = x*1 : x=x/2
+    print(x)
+finish.
