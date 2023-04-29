@@ -67,7 +67,7 @@ t2(t_t2_div(T2,T3))--> t2(T2),['/'],t3(T3).
 t2(T3)--> t3(T3).
 
 % T3 ::= (AE)| I |N
-t3(t_t3_par(AE))--> ['('],ae(AE),[')'].
+t3(t_exprbrkt(AE))--> ['('],ae(AE),[')'].
 t3(t_identifier(ID))--> identifier(ID).
 t3(t_num(Num))--> num(Num).
 
