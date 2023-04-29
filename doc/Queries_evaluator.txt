@@ -14,3 +14,15 @@ program(P, [start, int, x, =, 7,;, if,not,x,>,9 , then, x, =, 7, else, x , = , 3
 2. Ternary Operator:
 program(P, [start, int, x, = ,2, ;, x, == ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
 
+3. For loop:
+program(P, [start,int,y,=,0,;,for,'(',int,x,=,0,;,x,<=,2,;,x,=,x,+,1,')',begin,y,=,y,+,1,end,finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start,int,y,=,0,;,for,'(',int,x,=,0,;,x,<=,2,;,x,=,x,+,1,')',begin,y,=,y,+,1,;, print , '(' , y , ')',end,finish, .], []), write(P), program_eval(P,EnvOut).
+
+4. While loop:
+program(P, [start, int, x, = ,2, ;, while, x, '<=' ,8 ,begin,x ,= ,x ,+, 1, end, finish, .], []), write(P), program_eval(P,EnvOut).
+
+5. Operators:
+program(P, [start,int,y,=,1,;, y, =, y ,+, 2, ;, print, '(',y,')' ,finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start,int,y,=,1,;, y, =, y ,-, 2, ;, print, '(',y,')' ,finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start,int,y,=,1,;, y, =, y ,/, 2, ;, print, '(',y,')' ,finish, .], []), write(P), program_eval(P,EnvOut).p
+rogram(P, [start,int,y,=,1,;, y, =, y ,*, 2, ;, print, '(',y,')' ,finish, .], []), write(P), program_eval(P,EnvOut).
