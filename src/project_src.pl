@@ -260,10 +260,10 @@ check_bool_greater_than(A,B,true):- A > B.
 check_bool_greater_than(A,B,false):- A < B.
 
 check_bool_lteq(A,B,true):-A =< B.
-check_bool_lteq(A,B,false):-A >= B.
+check_bool_lteq(A,B,false):-A >= B.
 
 check_bool_gteq(A,B,true):-A >= B.
-check_bool_gteq(A,B,false):-A =< B.
+check_bool_gteq(A,B,false):-A =< B.
 
 % ae(t_ae(ID,T))--> identifier(ID),['='],t(T).
 % ae(T)--> t(T).
