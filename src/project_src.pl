@@ -217,7 +217,7 @@ exp_eval(t_exp(Str), Env, Value) :- str_eval(Str, Env, Val),write(Val),nl.
 
 booleanexpression_eval(t_be_and(Sub, BE), Val,Env,Env1) :- booleanexpression_eval(Sub, Sub_Val,Env,ImdEnv), booleanexpression_eval(BE,BE_Val,ImdEnv,Env1), and_eval(Sub_Val,BE_Val,Val).
 booleanexpression_eval(t_be_or(Sub,BE),Val,Env,Env1) :- booleanexpression_eval(Sub, Sub_Val,Env,ImdEnv), booleanexpression_eval(BE,BE_Val,ImdEnv,Env1), or_eval(Sub_Val,BE_Val,Val).
-booleanexpression_eval(t_sub_not(Sub), Val,Env,Env1) :- booleanexpression_eval(Sub,Env,Env1, Sub_Val), opp_eval(Sub_Val,Val).
+booleanexpression_eval(t_sub_not(Sub), Val,Env,Env1) :- booleanexpression_eval(Sub,Sub_Val,Env,Env1), opp_eval(Sub_Val,Val).
 booleanexpression_eval(t_sub_eq(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1,Env,ImdEnv,Val1), ae_eval(AE2, ImdEnv,Env1,Val2), check_bool_equal(Val1,Val2,Val).
 booleanexpression_eval(t_sub_greaterthan(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1, Env,ImdEnv,Val1), ae_eval(AE2, ImdEnv,Env1,Val2), check_bool_greater_than(Val1,Val2,Val).
 booleanexpression_eval(t_sub_lessthan(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1,Env,ImdEnv, Val1), ae_eval(AE2,ImdEnv,Env1, Val2), check_bool_less_than(Val1,Val2,Val).
