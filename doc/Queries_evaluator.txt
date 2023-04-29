@@ -13,4 +13,10 @@ program(P, [start, int, x, =, 7,;, if,not,x,>,9 , then, x, =, 7, else, x , = , 3
 
 2. Ternary Operator:
 program(P, [start, int, x, = ,2, ;, x, == ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,2, ;, x, > ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,2, ;, x, < ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,3, ;, x, >= ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,1, ;, x, <= ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,1, ;, not,x, == ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,1, ;, true ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
 
