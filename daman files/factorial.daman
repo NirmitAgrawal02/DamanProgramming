@@ -1,0 +1,9 @@
+start
+    int x = 5;
+    int a = 1;
+    while x>1
+        begin
+            a = a * x ;
+            x = x - 1
+        end
+finish .

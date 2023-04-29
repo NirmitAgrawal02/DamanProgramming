@@ -4,10 +4,11 @@ from io import BytesIO
 keywords = ["start","finish","int","bool","st","if","then","else","fi","while","begin","end","for","in","range","print","and","or","true","false"]
 operators = ["+", "-", "*", "/", "=", ">", "<", "!", "?", ":"]
 arithmetic_assignment = ["==","!=","<=",">="]
-separators = ["(", ")", "{", "}", ","]
+separators = ["(", ")",  ","]
 
-def lexical_analyzer(file):
-    if file[-5:] != "daman":
+def get_tokens(file):
+    ext=file.split('.')
+    if ext[1]!= "daman":
         print("Unsupported file extension")
         return
     final_op = "["
@@ -56,4 +57,4 @@ def lexical_analyzer(file):
 
 if __name__ == "__main__":
     x = input("Enter the name of the file ")
-    lexical_analyzer(x)
+    get_tokens(x)
