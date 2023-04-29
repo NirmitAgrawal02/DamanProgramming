@@ -131,7 +131,7 @@ block_eval(t_b(Td,Tc),Env,Env1) :- declaration_eval(Td,Env,ImdEnv),command_eval(
 % declaration(t_ass_decl(A)) --> ass_variable(A).
 % declaration(t_decl_decl(A)) --> decl_variable(A).
 
-declaration_eval(t_ass_decl(A,D),Env,Env1):- ass_variable_eval(A,Env,ImdEnv),declaration(D,ImdEnv,Env1).
+declaration_eval(t_ass_decl(A,D),Env,Env1):- ass_variable_eval(A,Env,ImdEnv),declaration_eval(D,ImdEnv,Env1).
 declaration_eval(t_decl_decl(A,D),Env,Env1) :- decl_variable_eval(A,Env,ImdEnv),declaration_eval(D,ImdEnv,Env1).
 declaration_eval(t_ass_decl(A),Env,Env1):- ass_variable_eval(A,Env,Env1).
 declaration_eval(t_decl_decl(A),Env,Env1) :- decl_variable_eval(A,Env, Env1).
@@ -172,16 +172,27 @@ new_command_eval(t_ncmd_if(Tbe,Tcmd,_),Env,Env1):-booleanexpression_eval(Tbe,tru
 new_command_eval(t_ncmd_if(Tbe,_,Tcmd1),Env,Env1):-booleanexpression_eval(Tbe,false,Env,ImdEnv),command_eval(Tcmd1,ImdEnv,Env1).
 new_command_eval(t_ncmd_while(Tbe,_Tcmd),Env,Env1):-booleanexpression_eval(Tbe,false,Env,Env1).
 new_command_eval(t_ncmd_while(Tbe,Tcmd),Env,Env1):- booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,ImdEnv1),new_command_eval(t_ncmd_while(Tbe,Tcmd),ImdEnv1,Env1).
-new_command_eval(t_ncmd_for(Tid,Tae,Tbe,_Tae1,_Tcmd),Env,Env1):-ae_eval(Tae,Env,ImdEnv,Val),update(Tid,ImdEnv,Val,ImdEnv2),booleanexpression_eval(Tbe,false,ImdEnv2,Env1).
-new_command_eval(t_ncmd_for(Tid,Tae,Tbe,Tae1,Tcmd),Env,Env1):-ae_eval(Tae,Env,ImdEnv,Val),update(Tid,ImdEnv,Val,ImdEnv2),booleanexpression_eval(Tbe,true,ImdEnv2,ImdEnv3),command_eval(Tcmd,ImdEnv3,ImdEnv4),ae_eval(Tae1,ImdEnv4,ImdEnv5,Val1),update(Tid,ImdEnv5,Val1,ImdEnv6),new_command_eval(t_ncmd_for(Tid,Tae,Tbe,Tae1,Tcmd),ImdEnv6,Env1).
 
-new_command_eval(t_ncmd_for_range(Tid,Tnum1,Tnum2,Tcmd),Env,Env1):- update(Tid,Env,Tnum1,ImdEnv),lookup(Tid,ImdEnv,Value),Value1 = (Value < Tnum2),booleanexpression_eval(Value1,false,ImdEnv,Env1).
-new_command_eval(t_ncmd_for_range(Tid,Tnum1,Tnum2,Tcmd),Env,Env1):- update(Tid,Env,Tnum1,ImdEnv),lookup(Tid,ImdEnv,Value),Value1 = (Value < Tnum2),booleanexpression_eval(Value1,true,ImdEnv,ImdEnv1),command_eval(Tcmd,ImdEnv1,ImdEnv2),Val1 is Tnum1 + 1 ,new_command_eval(t_ncmd_for(Tid,Tae,Val1,Tnum2,Tcmd),ImdEnv2,Env1).
+new_command_eval(t_ncmd_for(Tid,Tae,Tbe,_Tae1,_Tcmd),Env,Env1):-ae_eval(Tae,Env,ImdEnv,Val),update(Tid,ImdEnv,Val,ImdEnv2),booleanexpression_eval(Tbe,false,ImdEnv2,Env1).
+new_command_eval(t_ncmd_for(Tid,Tae,Tbe,Tae1,Tcmd),Env,Env1):-ae_eval(Tae,Env,ImdEnv,Val),update(Tid,ImdEnv,Val,ImdEnv2),booleanexpression_eval(Tbe,true,ImdEnv2,ImdEnv3),command_eval(Tcmd,ImdEnv3,ImdEnv4),ae_eval(Tae1,ImdEnv4,ImdEnv5,Val1),update(Tid,ImdEnv5,Val1,ImdEnv6),new_command_eval(t_ncmd_for(Tid,Tbe,Tae1,Tcmd),ImdEnv6,Env1).
+new_command_eval(t_ncmd_for(_,Tbe,_,_),Env,Env1):- booleanexpression_eval(Tbe,false,Env,Env1).
+new_command_eval(t_ncmd_for(Tid,Tbe,Tae1,Tcmd),Env,Env1):- booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,ImdEnv4),ae_eval(Tae1,ImdEnv4,ImdEnv5,Val1),update(Tid,ImdEnv5,Val1,ImdEnv6),new_command_eval(t_ncmd_for(Tid,Tae1,Tbe,Tae1,Tcmd),ImdEnv6,Env1).
+
+
+new_command_eval(t_ncmd_for_range(Tid,Tnum1,Tnum2,_),Env,Env1):- update(Tid,Env,Tnum1,Env1),check_boolean_expresson_for(Tid,Tnum2,false,Env1).
+new_command_eval(t_ncmd_for_range(Tid,Tnum1,Tnum2,Tcmd),Env,Env1):- update(Tid,Env,Tnum1,ImdEnv),check_boolean_expresson_for(Tid,Tnum2,true,ImdEnv),command_eval(Tcmd,ImdEnv,ImdEnv2),increment_expression_for(Tid,ImdEnv2,ImdEnv2,Val),update(Tid,ImdEnv2,Val,ImdEnv3),new_command_eval(t_ncmd_for_range(Tid,Val,Tnum2,Tcmd),ImdEnv3,Env1).
+
 new_command_eval(t_ncmd_ternary(Tbe,Tcmd,_Tcmd1),Env,Env1):- booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,Env1).
 new_command_eval(t_ncmd_ternary(Tbe,_Tcmd,Tcmd1),Env,Env1):- booleanexpression_eval(Tbe,false,Env,ImdEnv),command_eval(Tcmd1,ImdEnv,Env1).
-new_command_eval(t_ncmd_print(Texp),Env,Env1):-exp_eval(Texp,Env,Env1).
+new_command_eval(t_ncmd_print(Texp),Env,Env1):-nl,exp_eval(Texp,Env,Env1).
 new_command_eval(t_cmdblk(Tb1),Env,Env1):-block_eval(Tb1,Env,Env1).
 
+% Check Boolean Expression for i in range
+
+check_boolean_expresson_for(A,B,true,Env):- lookup(A,Env,Val),Val < B.
+check_boolean_expresson_for(A,B,false,Env):- lookup(A,Env,Val),Val > B.
+
+increment_expression_for(A,Env,Env,Val):- lookup(A,Env,Val1),Val is Val1 + 1.
 
 % % EXP ::= AE;EXP | BE;EXP | STRING; EXP | AE | BE | STRING 
 % exp(t_exp(AE,Exp))--> ae(AE),[';'],exp(Exp).
@@ -196,7 +207,7 @@ exp_eval(t_exp(BE, Exp), Env,Env1) :- booleanexpression_eval(BE,Val,Env,ImdEnv),
 exp_eval(t_exp(Str, Exp), Env,Env1) :- str_eval(Str, Env, Val), exp_eval(Exp, Env, Env1),write(Val),nl.
 exp_eval(t_exp(AE), Env,Env1) :- ae_eval(AE,Env,Env1,Val),write(Val),nl.
 exp_eval(t_exp(BE),Env,Env1) :- booleanexpression_eval(BE,Val,Env,Env1),write(Val),nl.
-exp_eval(t_exp(Str), Env, Value) :- str_eval(Str, Env, Val),write(Val),nl.
+exp_eval(t_exp(Str), Env, Env) :- str_eval(Str, Env, Val),write(Val),nl.
 
 
 % BE ::= SUB and BE | SUB or BE | SUB
@@ -204,7 +215,7 @@ exp_eval(t_exp(Str), Env, Value) :- str_eval(Str, Env, Val),write(Val),nl.
 % be(t_be_or(Sub,BE))--> sub(Sub),['or'],be(BE).
 % be(t_sub_not(Sub))--> ['not'],BE(Sub).
 % be(t_be(Sub))--> sub(Sub).
-% % SUB ::= AE==AE | AE>AE | AE<AE | AE>= AE | AE<=AE | AE!= AE | not SUB | BOOL_VAL 
+% SUB ::= AE==AE | AE>AE | AE<AE | AE>= AE | AE<=AE | AE!= AE | not SUB | BOOL_VAL 
 % sub(t_sub_eq(AE1,AE2))--> ae(AE1),['=='],ae(AE2).
 % sub(t_sub_greaterthan(AE1,AE2))--> ae(AE1),['>'],ae(AE2).
 % sub(t_sub_lessthan(AE1,AE2))--> ae(AE1),['<'],ae(AE2).
@@ -248,10 +259,10 @@ check_bool_greater_than(A,B,true):- A > B.
 check_bool_greater_than(A,B,false):- A < B.
 
 check_bool_lteq(A,B,true):-A =< B.
-check_bool_lteq(A,B,false):-A >= B.
+check_bool_lteq(A,B,false):-A >= B.
 
 check_bool_gteq(A,B,true):-A >= B.
-check_bool_gteq(A,B,false):-A =< B.
+check_bool_gteq(A,B,false):-A =< B.
 
 % ae(t_ae(ID,T))--> identifier(ID),['='],t(T).
 % ae(T)--> t(T).
