@@ -4,12 +4,15 @@
 
 Daman is a simple programming language created as part of a project for a programming languages course. It is designed to be easy to learn and use for beginners while still providing basic programming constructs.
 
+
+
 ## Table of Contents
 
 - [Installation](#gettingstarted)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
+
 
 
 ## GettingStarted
