@@ -6,7 +6,7 @@ prolog = Prolog()
 defined_terms = ["start", "finish", "int", "bool", "st", "if", "then", "else", "fi", "while", "begin", "end", "for", "in", "range", "print",
                  "and", "or", "true", "false", "not", "+", "-", "*", "/", "=", ">", "<", "!", "?", ":", "==", "!=", "<=", ">=", "(", ")",  ",", ".", ";"]
 
-prolog.consult("../src/project_src.pl")
+prolog.consult("src/project_src.pl")
 
 
 def get_tokens(file):
@@ -30,19 +30,9 @@ def get_tokens(file):
                 if val in defined_terms:
                     final_op += "'"+val+"'"
                     final_op += ", "
-                elif val in separators:
-                    final_op += "'"
-                    final_op += val
-                    final_op += "', "
-                elif val.startswith("'"):
-                    temp = val[1:-1]
-                    final_op += ("'" + temp + "', ")
                 elif val.startswith('"'):
                     temp = val[1:-1]
                     final_op += ('"' + temp + '", ')
-                elif val in arithmetic_assignment:
-                    final_op += "'"+val+"'"
-                    final_op += ", "
                 elif val == ".":
                     final_op += "'.',"
                 elif val.isdigit():
@@ -69,6 +59,5 @@ def evaluator(tok):
     return fin
 
 
-if _name_ == "_main_":
-    x = input("Enter the name of the file ")
-    evaluator(get_tokens(x))
+x = input("Enter the name of the file ")
+evaluator(get_tokens(x))
