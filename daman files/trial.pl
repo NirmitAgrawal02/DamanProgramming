@@ -1,0 +1,1 @@
+heavy(Cat,Dog).
