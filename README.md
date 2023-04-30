@@ -6,6 +6,10 @@ Daman is a simple programming language created as part of a project for a progra
 
 Repo Link - [https://github.com/NirmitAgrawal02/SER502-Spring2023-Team-41-](#https://github.com/NirmitAgrawal02/SER502-Spring2023-Team-41-)
 
+Youtube Demonstration Link - 
+
+System on which the compiler and runtime are built: Windows OS and MacOS
+
 ## Table of Contents
 
 - [GettingStarted](#gettingstarted)
@@ -28,7 +32,6 @@ To use Daman, you need to have Python 3 installed on your system. The following 
 
 The Daman programming language uses a simple syntax that is easy to understand. Here is an example program that prints the sum of two numbers:
 
-go
 `start`
 `int x = 5;`
 `int y = 10;`
