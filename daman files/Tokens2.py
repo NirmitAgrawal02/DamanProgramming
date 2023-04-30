@@ -49,6 +49,5 @@ def get_tokens(file):
     return final_op
 
 
-
 x = input("Enter the name of the file ")
 get_tokens(x)
