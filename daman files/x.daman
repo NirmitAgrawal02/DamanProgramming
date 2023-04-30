@@ -1,8 +1,10 @@
 start
-    int a = 1;
-    for x in range(1,11)
-        begin 
-            int y = x * 2;
-            print("2 x " x " = " y)
-        end
-finish .
+int x  = 4 ;
+int y = 0;
+while y <= x
+    begin
+        print ( y );
+        y = y + 1
+    end
+finish
+

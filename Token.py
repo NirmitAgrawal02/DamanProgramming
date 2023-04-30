@@ -25,36 +25,40 @@ def get_tokens(file):
             if val == "\n" or val == " " or val == "\t":
                 continue
             else:
-                if val in defined_terms:
+                if val == ".":
+                    final_op += "'.'"
+                elif val in defined_terms:
                     final_op += "'"+val+"'"
                     final_op += ", "
                 elif val.startswith('"'):
                     temp = val[1:-1]
                     final_op += ('"' + temp + '", ')
-                elif val == ".":
-                    final_op += "'.',"
                 elif val.isdigit():
                     final_op += val + ","
                 elif val.isalpha():
                     final_op += "'"+val+"',"
-    final_op = final_op[:-1]
     final_op += "]"
     print(final_op)
 
-    return final_op
+    return str(final_op)
 
 
 def evaluator(tok):
-    prolog.consult('. /src/project_src.pl')
+    print("Tok")
+    print(tok)
+    prolog.consult("src/compiler.pl")
     res = ""
-    for sol in prolog.query("program(P,"+tok+",[]."):
+    for sol in prolog.query("program(P,"+tok+",[])."):
         res = sol["P"]
+        print(sol)
+        print("Res:  "+res)
     if not res:
         print("No Tree")
         return None
-    res = res.replace("b'", "'")
+    #res = res.replace("b", "")
     for fin in prolog.query("program_eval("+res+",EnvOut)."):
         pass
+    print(fin)
     return fin
 
 
