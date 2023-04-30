@@ -1,0 +1,4 @@
+start
+    int x  = 1;
+    x==1 ? print("x is 1") : print ( " x is not 1 " );
+finish .
