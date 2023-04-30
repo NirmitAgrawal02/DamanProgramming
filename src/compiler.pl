@@ -110,11 +110,6 @@ num(N) --> [N], {integer(N)}.
 
 % Evaluator
 
-% Data Type
-
-datatype(I,[],_) :- nl,fail.
-datatype(I,[(I,Val)|_],Val).
-datatype(I,[H|T],Val) :- datatype(I,T,Val).
 
 % Lookup 
 
