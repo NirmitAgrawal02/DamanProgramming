@@ -32,12 +32,13 @@ To use Daman, you need to have Python 3 installed on your system. The following 
 
 The Daman programming language uses a simple syntax that is easy to understand. Here is an example program that prints the sum of two numbers:
 
-`start`
-`int x = 5;`
-`int y = 10;`
-`int z = x + y;`
-`print(z);`
-`finish.`
+start
+    int x = 7 ;
+    int y=8;
+    int z=x+y;
+    print(z);
+finish.
+
 
 
 To run a Daman program, use the following command:
