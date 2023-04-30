@@ -24,21 +24,21 @@ def get_tokens(file):
                     if val in defined_terms:
                         final_op += "'"+val+"'"
                         final_op += ", "
-                    elif val in separators:
-                        final_op += "'"
-                        final_op += val
-                        final_op += "', "
-                    elif val.startswith("'"):
-                        temp = val[1:-1]
-                        final_op += ("'" + temp + "', ")
+                    # elif val in separators:
+                    #     final_op += "'"
+                    #     final_op += val
+                    #     final_op += "', "
+                    # elif val.startswith("'"):
+                    #     temp = val[1:-1]
+                    #     final_op += ("'" + temp + "', ")
                     elif val.startswith('"'):
                         temp = val[1:-1]
                         final_op += ('"' + temp + '", ')
-                    elif val in arithmetic_assignment:
-                        final_op += "'"+val+"'"
-                        final_op += ", "
-                    elif val == ".":
-                        final_op += "'.',"
+                    # elif val in arithmetic_assignment:
+                    #     final_op += "'"+val+"'"
+                    #     final_op += ", "
+                    # elif val == ".":
+                    #     final_op += "'.',"
                     elif val.isdigit():
                         final_op += val +","
                     elif val.isalpha():
@@ -49,6 +49,6 @@ def get_tokens(file):
     return final_op
 
 
-if _name_ == "_main_":
-    x = input("Enter the name of the file ")
-    get_tokens(x)
+
+x = input("Enter the name of the file ")
+get_tokens(x)
