@@ -2,6 +2,28 @@
 %:- use_rendering(svgtree).
 :- table t/3,t2/3, identifier/3,num/3.
 program(t_p(Tb)) --> block(Tb),['.'].
+run_program(P):- eval_program(P, []).
+
+eval_program(tree(program,[BlockTree,_]), InitialEnv):-
+    eval_block(BlockTree,InitialEnv, _FinalEnv).
+
+%%=======BLOCK========%%
+eval_block(tree(block,[CommandsTree]),InitialEnv, FinalEnv):-
+    eval_commands(CommandsTree,InitialEnv, FinalEnv).
+
+eval_block(tree(block,[DeclarationsTree,CommandsTree]),InitialEnv, FinalEnv):-
+    eval_declarations(DeclarationsTree,InitialEnv, TempEnv),
+    eval_commands(CommandsTree,TempEnv, FinalEnv).
+
+%%=====Declarations====%%
+eval_declarations(tree(declarations,[SingleDeclaration,_]), InitialEnv, FinalEnv):-
+    eval_single_declaration(SingleDeclaration, InitialEnv, FinalEnv).
+
+eval_declarations(tree(declarations,[FirstDeclaration,_|RemDeclaration]), InitialEnv, FinalEnv):-
+    RemDeclaration \= [],
+    eval_single_declaration(FirstDeclaration, InitialEnv, TempEnv),
+    eval_declarations(tree(declarations,RemDeclaration), TempEnv, FinalEnv).
+
 block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
 declaration(t_ass_decl(A,D)) --> ass_variable(A),[';'],declaration(D).
 declaration(t_decl_decl(A,D)) --> decl_variable(A),[';'],declaration(D).
@@ -20,6 +42,26 @@ ass_variable(t_ass_variable_st(Tid,Tstr)) --> ['st'],identifier(Tid),['='],str(T
 decl_variable(t_decl_variable_int(Tid)) --> ['int'],identifier(Tid).
 decl_variable(t_decl_variable_bool(Tid)) --> ['bool'],identifier(Tid).
 decl_variable(t_decl_variable_st(Tid)) --> ['st'],identifier(Tid).
+
+%%=====Declaration====%%
+eval_single_declaration(tree(declaration,[token(_INT,'int'),token(_I,Identifier),_,token(_N,Val)]), InitialEnv, FinalEnv):-
+	atom_number(Val, NewVal),
+    updateEnv(Identifier,NewVal,InitialEnv,FinalEnv).
+
+eval_single_declaration(tree(declaration,[token(_STRING,'string'),token(_I,Identifier),_,token(_S,Val)]), InitialEnv, FinalEnv):-
+	updateEnv(Identifier,Val,InitialEnv,FinalEnv).
+
+eval_single_declaration(tree(declaration,[token(_BOOL,'bool'),token(_I,Identifier),_,token(_TRUE,Val)]), InitialEnv, FinalEnv):-
+	updateEnv(Identifier,Val,InitialEnv,FinalEnv).
+
+eval_single_declaration(tree(declaration,[token(_INT,'int'),token(_I,Identifier)]), InitialEnv, FinalEnv):-
+	updateEnv(Identifier,0,InitialEnv,FinalEnv).
+
+eval_single_declaration(tree(declaration,[token(_STRING,'string'),token(_I,Identifier)]), InitialEnv, FinalEnv):-
+	updateEnv(Identifier,"",InitialEnv,FinalEnv).
+
+eval_single_declaration(tree(declaration,[token(_BOOL,'bool'),token(_I,Identifier)]), InitialEnv, FinalEnv):-
+	updateEnv(Identifier,true,InitialEnv,FinalEnv).
 
 % CMD ::= NC; CMD | NC
 
