@@ -25,12 +25,7 @@
 
 
   Contributions for Milestone 2
-   1. Worked on developing the readme file and canvas page as documentation of the project
-   2. Worked on developing if-then-else loops for parsar and evaluator
-   3. Worked on developing while loops for parser and evaluator
-   4. Worked on writing .daman files (prime number, for loop, while loop programs in daman)
-   5. Worked on developing the tokenizer
-   6. Worked on making the final presentation
+   1. Worked on developing the readme file and canvas page as documentation of the project.
 
 
 3. Akshat Bakliwal
