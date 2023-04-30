@@ -74,16 +74,3 @@ The source code is available under the [MIT license](https://github.com/bitcooki
 ![Prolog](https://img.shields.io/badge/-Prolog-red?style=flat-round&logo=Prolog)
 ![Python](https://img.shields.io/badge/-Python-black?style=flat-round&logo=Python)
 
-### Libraries & Frameworks
-
-![Flask](https://img.shields.io/badge/-Flask-blue?style=flat-round&logo=flask)
-![Sklearn](https://img.shields.io/badge/-sklearn-E45826?style=flat-round&logo=Sklearn)
-![BeautifulSoup](https://img.shields.io/badge/-BeautifulSoup-C65D7B?style=flat-round&logo=BeautifulSoup)
-![Selenium](https://img.shields.io/badge/-Selenium-black?style=flat-round&logo=selenium)
-
-
-### Reach out to us on
-
-[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-round&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alok-rajpurohit-1941461a3/)](https://www.linkedin.com/in/alok-rajpurohit-1941461a3/)
-[![Twitter Badge](https://img.shields.io/badge/-Twitter-blue?style=flat-round&logo=Twitter&logoColor=white&link=https://twitter.com/AlokPur32580593)](https://twitter.com/AlokPur32580593)
-[![Gmail Badge](https://img.shields.io/badge/-Gmail-c14438?style=flat-round&logo=Gmail&logoColor=white&link=mailto:saloniguptasg12@gmail.com)](mailto:alokpurohit18@gmail.com)
