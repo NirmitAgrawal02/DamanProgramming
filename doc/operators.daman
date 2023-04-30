@@ -1,0 +1,5 @@
+start
+    int y = 1 ;
+    y = y + 2 ;
+    print ( y ) ;
+finish.

@@ -1,0 +1,7 @@
+start
+    int x = 2 ;
+    while x <= 8
+    begin
+    x = x + 1
+    end;
+finish.
