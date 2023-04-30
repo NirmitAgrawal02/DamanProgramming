@@ -1,0 +1,5 @@
+
+start  
+    int x  = 1 ;
+    true ? x = x + 1 : x = x + 2
+finish.

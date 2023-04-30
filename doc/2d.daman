@@ -1,0 +1,16 @@
+
+start  
+    int x  = 3 ;
+    x >= 3 ? x = x + 1 : x = x + 2
+    finish.
+e.program(P, [start, int, x, = ,1, ;, x, <= ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+f.program(P, [start, int, x, = ,1, ;, not,x, == ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+g.program(P, [start, int, x, = ,1, ;, true ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+h.program(P, [start, int, x, = ,2, ;, x, == , 2, 'and' ,x ,- ,1 ,== ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+i.program(P, [start, int, x, = ,2, ;, x, == , 2, 'or' ,x ,- ,1 ,== ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+j.program(P, [start, int, x, = ,2, ;, x, '!=' , 2, 'or' ,x ,- ,1 ,== ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+k.program(P, [start, int, x, = ,2, ;, x, '!=' , 2, 'or' ,x ,- ,1 ,'!=' ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+l.program(P, [start, int, x, = ,2, ;, x, '==' , 2, 'or' ,x ,- ,1 ,'!=' ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+m.program(P, [start, int, x, = ,2, ;, x, '==' , 2, 'and' ,x ,- ,1 ,'!=' ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+n.program(P, [start, int, x, = ,2, ;, x, '!=' , 2, 'and' ,x ,- ,1 ,'!=' ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+o.program(P, [start, int, x, = ,2, ;, x, '!=' , 2, 'and' ,x ,- ,1 ,'==' ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
