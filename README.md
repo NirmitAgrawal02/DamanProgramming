@@ -47,7 +47,8 @@ finish.
 
 To run a Daman program, use the following command:
 
-`python daman.py <filename>.daman`
+`python3 Token.py 
+<filename>.daman`
 
 
 ## Features
