@@ -1,7 +1,0 @@
-
-start  
-    int x  = 2 ;
-    x != 2 and x - 1 != 1 ? x = x + 1 : x = x + 2
-finish.
-
-o.program(P, [start, int, x, = ,2, ;, x, '!=' , 2, 'and' ,x ,- ,1 ,'==' ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
