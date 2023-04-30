@@ -3,10 +3,8 @@ from io import BytesIO
 from pyswip import Prolog
 
 prolog = Prolog()
-defined_terms = ["start", "finish", "int", "bool", "st", "if", "then", "else", "fi", "while", "begin", "end", "for", "in", "range", "print",
-                 "and", "or", "true", "false", "not", "+", "-", "*", "/", "=", ">", "<", "!", "?", ":", "==", "!=", "<=", ">=", "(", ")",  ",", ".", ";"]
-
-prolog.consult("src/project_src.pl")
+defined_terms = ['start', 'finish', 'int', 'bool', 'st', 'if', 'then', 'else', 'fi', 'while', 'begin', 'end', 'for', 'in', 'range', 'print',
+                 'and', 'or', 'true', 'false', 'not', '+', '-', '*', '/', '=', '>', '<', '!', '?', ':', '==', '!=', '<=', '>=', '(', ')',  ',', '.', ';']
 
 
 def get_tokens(file):
@@ -47,6 +45,7 @@ def get_tokens(file):
 
 
 def evaluator(tok):
+    prolog.consult('. /src/project_src.pl')
     res = ""
     for sol in prolog.query("program(P,"+tok+",[]."):
         res = sol["P"]
