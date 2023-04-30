@@ -33,7 +33,7 @@ def get_tokens(file):
         elif val in ARITHMETIC_ASSIGNMENT:
             final_op += f"'{val}', "
         elif val == ".":
-            final_op += "'.',"
+            final_op += "'.'"
         elif val.isdigit():
             final_op += f"{val},"
         elif val.isalpha():
