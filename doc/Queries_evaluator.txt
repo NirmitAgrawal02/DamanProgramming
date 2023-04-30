@@ -19,6 +19,14 @@ program(P, [start, int, x, = ,3, ;, x, >= ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+
 program(P, [start, int, x, = ,1, ;, x, <= ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
 program(P, [start, int, x, = ,1, ;, not,x, == ,3 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
 program(P, [start, int, x, = ,1, ;, true ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,2, ;, x, == , 2, 'and' ,x ,- ,1 ,== ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,2, ;, x, == , 2, 'or' ,x ,- ,1 ,== ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,2, ;, x, '!=' , 2, 'or' ,x ,- ,1 ,== ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,2, ;, x, '!=' , 2, 'or' ,x ,- ,1 ,'!=' ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,2, ;, x, '==' , 2, 'or' ,x ,- ,1 ,'!=' ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,2, ;, x, '==' , 2, 'and' ,x ,- ,1 ,'!=' ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,2, ;, x, '!=' , 2, 'and' ,x ,- ,1 ,'!=' ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, x, = ,2, ;, x, '!=' , 2, 'and' ,x ,- ,1 ,'==' ,1 ,'?',x ,= ,x ,+, 1, ':' ,x ,= ,x ,+, 2, finish, .], []), write(P), program_eval(P,EnvOut).
 
 3. For loop:
 program(P, [start,int,y,=,0,;,for,'(',int,x,=,0,;,x,<=,2,;,x,=,x,+,1,')',begin,y,=,y,+,1,end,finish, .], []), write(P), program_eval(P,EnvOut).
@@ -62,4 +70,7 @@ program(P, [start, int, z, ;, int, x, ;, az, =, 2,;,print,'(',az,')',;,print,'('
 program(P, [start, int, z, ;, int, x, ;, az, =, 2,;,print,'(',az,')',;,print,'(','"','This',' ','is','"',')', finish, .], []), write(P), program_eval(P,EnvOut).
 program(P, ['start','bool', 'x', '=' ,'true',';' ,'print','(','x',')','finish', '.'], []), write(P), program_eval(P,EnvOut).
 program(P, ['start','int','x',';','int', 'y','=' ,5,';' ,'y' ,'=' ,6,'finish', '.'], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, z, ;, int, x, ;, az, =, 2,;,print,'(',az,')',;,print,'(','true',and,'true',')', finish, .], []), write(P), program_eval(P,EnvOut).
+
+
 program(P, [start, int, z, ;, int, x, ;, az, =, 2,;,print,'(',az,')',;,print,'(','true',and,'true',')', finish, .], []), write(P), program_eval(P,EnvOut).
