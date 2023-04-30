@@ -1,5 +1,0 @@
-
-start  
-    int x  = 1 ;
-    not x == 3 ? x = x + 1 : x = x + 2 ;
-finish.

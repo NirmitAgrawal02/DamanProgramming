@@ -1,6 +1,0 @@
-start
-    int x = 8 ;
-    if x <= 9 then x = 7
-    else x = 3
-    fi
-finish.
