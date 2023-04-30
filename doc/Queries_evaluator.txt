@@ -73,3 +73,4 @@ program(P, ['start','int','x',';','int', 'y','=' ,5,';' ,'y' ,'=' ,6,'finish', '
 program(P, [start, int, z, ;, int, x, ;, az, =, 2,;,print,'(',az,')',;,print,'(','true',and,'true',')', finish, .], []), write(P), program_eval(P,EnvOut).
 
 
+program(P, [start, int, z, ;, int, x, ;, az, =, 2,;,print,'(',az,')',;,print,'(','true',and,'true',')', finish, .], []), write(P), program_eval(P,EnvOut).
