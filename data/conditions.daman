@@ -5,7 +5,7 @@ start
             x = x + 1
     else
             x = x + 2
-    fi
+    fi;
 finish . 
 
 
