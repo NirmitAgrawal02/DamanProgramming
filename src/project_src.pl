@@ -212,6 +212,7 @@ exp_eval(t_exp(Str, Exp), Env,Env1) :- str_eval(Str, Env, Val), exp_eval(Exp, En
 exp_eval(t_exp(AE), Env,Env1) :- ae_eval(AE,Env,Env1,Val),write(Val),nl.
 exp_eval(t_exp(BE),Env,Env1) :- booleanexpression_eval(BE,Val,Env,Env1),write(Val),nl.
 exp_eval(t_exp(Str), Env, Env) :- str_eval(Str, Env, Val),write(Val),nl.
+exp_eval(t_exp(Str),Env, Env):- lookup(Str,Env,Val),write(Val),nl.
 
 % BE ::= SUB and BE | SUB or BE | SUB
 % be(t_be_and(Sub,BE))--> sub(Sub),['and'],be(BE).
@@ -240,6 +241,7 @@ booleanexpression_eval(t_sub_lteqto(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1,Env,
 booleanexpression_eval(t_sub_noteq(AE1, AE2), Val,Env,Env1) :- ae_eval(AE1,Env,ImdEnv, Val1), ae_eval(AE2,ImdEnv,Env1, Val2), check_bool_equal(Val1,Val2,Val3),opp_eval(Val3,Val).
 booleanexpression_eval(t_sub_bool(true), true,Env,Env).
 booleanexpression_eval(t_sub_bool(false), false,Env,Env).
+
 and_eval(true,true,true).
 and_eval(false,_,false).
 and_eval(true,false,false).
