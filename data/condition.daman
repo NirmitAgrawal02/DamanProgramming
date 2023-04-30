@@ -3,4 +3,5 @@ start
     if x == 9 then x = 7
     else x = 3
     fi;
+    print(x);
 finish.
