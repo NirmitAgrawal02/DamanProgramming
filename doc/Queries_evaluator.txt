@@ -72,5 +72,12 @@ program(P, ['start','bool', 'x', '=' ,'true',';' ,'print','(','x',')','finish', 
 program(P, ['start','int','x',';','int', 'y','=' ,5,';' ,'y' ,'=' ,6,'finish', '.'], []), write(P), program_eval(P,EnvOut).
 program(P, [start, int, z, ;, int, x, ;, az, =, 2,;,print,'(',az,')',;,print,'(','true',and,'true',')', finish, .], []), write(P), program_eval(P,EnvOut).
 
-
+7. Print STRING
+program(P, [start, int, z, ;, int, x, ;, az, =, 2,;,print,'(',az,')',;,print,'(','"','This',' ','is','"',')', finish, .], []), write(P), program_eval(P,EnvOut).
 program(P, [start, int, z, ;, int, x, ;, az, =, 2,;,print,'(',az,')',;,print,'(','true',and,'true',')', finish, .], []), write(P), program_eval(P,EnvOut).
+
+
+program(P, [start, int, a, =, 1,;,for, x, in, range,'(',1,',',10,')',begin,if,x,/,2, '==' ,0,then,print, '(',x, '"',' odd', '"',')',else,print,'(',x,')',;,print, '(''"','even','"',')',fi, end, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, a, =, 1,;,for, x, in, range,'(',1,',',10,')',begin,if,x,/,2, '==' ,0,then,print, '(',x, '"',' odd', '"',')',else,print,'(',x,')',;,print, '(''"','even','"',')',fi, end, finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, a, =, 2,;, for, x ,in, range,'(',1,',',10,')',begin, print, '(','"',2*,'"',')' ,;, print ,'(',x,')', ;, print,'(', '"', =, '"', ')',;, print,'(',x,*,2,')', finish, .], []), write(P), program_eval(P,EnvOut).
+program(P, [start, int, a, =, 1,;,for, x, in, range,'(',1,',',10,')',begin,if,x, '==' ,2,then,print, '(','"',' odd', '"',')',else,print,'(',x,')',;,print, '(','"','even','"',')',fi, end, finish, .], []), write(P), program_eval(P,EnvOut).
