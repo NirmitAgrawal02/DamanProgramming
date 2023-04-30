@@ -199,7 +199,7 @@ new_command_eval(t_ncmd_for_range(Tid,Tnum2,Tcmd),Env,Env1):-lookup(Tid,Env,Tnum
 
 new_command_eval(t_ncmd_ternary(Tbe,Tcmd,_Tcmd1),Env,Env1):- booleanexpression_eval(Tbe,true,Env,ImdEnv),command_eval(Tcmd,ImdEnv,Env1).
 new_command_eval(t_ncmd_ternary(Tbe,_Tcmd,Tcmd1),Env,Env1):- booleanexpression_eval(Tbe,false,Env,ImdEnv),command_eval(Tcmd1,ImdEnv,Env1).
-new_command_eval(t_ncmd_print(Texp),Env,Env1):-nl,exp_eval(Texp,Env,Env1).
+new_command_eval(t_ncmd_print(Texp),Env,Env1):-exp_eval(Texp,Env,Env1),nl.
 new_command_eval(t_cmdblk(Tb1),Env,Env1):-block_eval(Tb1,Env,Env1).
 
 increment_expression_for(A,Env,Val):- lookup(A,Env,Val1),Val is Val1 + 1.
@@ -212,13 +212,12 @@ increment_expression_for(A,Env,Val):- lookup(A,Env,Val1),Val is Val1 + 1.
 % exp(t_exp(BE))--> be(BE).
 % exp(t_exp(Str))--> str(Str).
 
-exp_eval(t_exp(AE, Exp), Env,Env1) :- ae_eval(AE,Env,ImdEnv,Val), exp_eval(Exp,ImdEnv,Env1),write(Val),nl.
-exp_eval(t_exp(BE, Exp), Env,Env1) :- booleanexpression_eval(BE,Val,Env,ImdEnv), exp_eval(Exp,ImdEnv,Env1),write(Val),nl.
-exp_eval(t_exp(Str, Exp), Env,Env1) :- str_eval(Str, Env, Val), exp_eval(Exp, Env, Env1),write(Val),nl.
-exp_eval(t_exp(AE), Env,Env1) :- ae_eval(AE,Env,Env1,Val),write(Val),nl.
-exp_eval(t_exp(BE),Env,Env1) :- booleanexpression_eval(BE,Val,Env,Env1),write(Val),nl.
-exp_eval(t_exp(Str), Env, Env) :- str_eval(Str, Env, Val),write(Val),nl.
-% exp_eval(t_exp(Str),Env, Env):- lookup(Str,Env,Val),write(Val),nl.
+exp_eval(t_exp(AE, Exp), Env,Env1) :- ae_eval(AE,Env,ImdEnv,Val), exp_eval(Exp,ImdEnv,Env1),write(Val).
+exp_eval(t_exp(BE, Exp), Env,Env1) :- booleanexpression_eval(BE,Val,Env,ImdEnv), exp_eval(Exp,ImdEnv,Env1),write(Val).
+exp_eval(t_exp(Str, Exp), Env,Env1) :- str_eval(Str, Env, Val), exp_eval(Exp, Env, Env1),write(Val).
+exp_eval(t_exp(AE), Env,Env1) :- ae_eval(AE,Env,Env1,Val),write(Val).
+exp_eval(t_exp(BE),Env,Env1) :- booleanexpression_eval(BE,Val,Env,Env1),write(Val).
+exp_eval(t_exp(Str), Env, Env) :- str_eval(Str, Env, Val),write(Val).
 
 % BE ::= SUB and BE | SUB or BE | SUB
 % be(t_be_and(Sub,BE))--> sub(Sub),['and'],be(BE).
