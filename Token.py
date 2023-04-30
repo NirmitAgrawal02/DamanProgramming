@@ -9,7 +9,7 @@ defined_terms = ['start', 'finish', 'int', 'bool', 'st', 'if', 'then', 'else', '
 
 def get_tokens(file):
     ext = file.split('.')
-    print(ext)
+    # print(ext)
     if ext[1] != "daman":
         print("Unsupported file extension")
         return
@@ -38,27 +38,27 @@ def get_tokens(file):
                 elif val.isalpha():
                     final_op += "'"+val+"',"
     final_op += "]"
-    print(final_op)
+    # print(final_op)
 
     return str(final_op)
 
 
 def evaluator(tok):
-    print("Tok")
+    # print("Tok")
     print(tok)
     prolog.consult("src/compiler.pl")
     res = ""
     for sol in prolog.query("program(P,"+tok+",[])."):
         res = sol["P"]
-        print(sol)
-        print("Res:  "+res)
+        # print(sol)
+        #print("Res:  "+res)
     if not res:
-        print("No Tree")
+        print("Compilation Failed!")
         return None
     #res = res.replace("b", "")
-    for fin in prolog.query("program_eval("+res+",EnvOut)."):
+    for fin in prolog.query("program_eval("+res+")."):
         pass
-    print(fin)
+    # print(fin)
     return fin
 
 

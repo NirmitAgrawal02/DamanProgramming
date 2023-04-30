@@ -3,7 +3,8 @@ start
     int a = 1;
     while x>1
         begin
-            a = a * x ;
+            a = a * x; 
             x = x - 1
-        end
+        end;
+    print(a);
 finish .

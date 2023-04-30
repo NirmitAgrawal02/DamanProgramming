@@ -130,7 +130,7 @@ update(I,[H|T],NewVal,[H|NewEnv]) :- H\=(I,_),update(I,T,NewVal,NewEnv).
 
 % Program Evaluator
 
-program_eval(t_p(A),EnvOut) :- block_eval(A,[],EnvOut).
+program_eval(t_p(A)) :- block_eval(A,[],EnvOut),write("Program Compiled Successfully").
 
 % block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
 
