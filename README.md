@@ -4,11 +4,11 @@
 
 Daman is a simple programming language created as part of a project for a programming languages course. It is designed to be easy to learn and use for beginners while still providing basic programming constructs.
 
-Repo Link - [https://github.com/NirmitAgrawal02/SER502-Spring2023-Team-41-](#https://github.com/NirmitAgrawal02/SER502-Spring2023-Team-41-)
 
 Youtube Demonstration Link - 
+https://youtu.be/JV_mqQmRXZ0
 
-System on which the compiler and runtime are built: Windows OS and MacOS
+System on which the compiler and runtime are built: Windows OS
 
 ## Table of Contents
 
@@ -17,15 +17,19 @@ System on which the compiler and runtime are built: Windows OS and MacOS
 - [Contributing](#contributing)
 - [License](#license)
 
+## Tools Used:
 
-## GettingStarted
+- DCG
+- Prolog
+- Python
+- Pyswip
 
-To use Daman, you need to have Python 3 installed on your system. The following steps will guide you through the installation process:
+## Installation Steps:-
 
-- Clone this repository or download the zip file.
-- Extract the files to a folder.
-- Open a terminal or command prompt in the folder where the files are located.
-- Run the following command: pip install -r requirements.txt
+1. Clone the Github Repository
+2. Install the pyswip libraries
+3. Run the file in the main program:- python3 Token.py
+4. Enter the daman file and run
 
 
 ## Usage
