@@ -1,0 +1,15 @@
+start
+    int num = 29;
+    int count = 0;
+    for x in range(2,num):
+        begin
+            if (num % x) == 0:
+                count = count + 1;
+            fi
+        end
+    if count > 0:
+        print(num,"is not a prime number.")
+    else:
+        print(num,"is a prime number.")
+    fi
+finish .
