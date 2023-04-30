@@ -1,8 +1,10 @@
 start
-int x  = 8 ;
-if x == 9 then
-    x = 7
-else
-    x = 3
-fi
-finish.
+int x  = 4 ;
+int y = 0;
+while y <= x
+    begin
+        print ( y );
+        y = y + 1;
+    end
+finish
+

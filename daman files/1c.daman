@@ -2,5 +2,5 @@ start
     int x = 11 ;
     if x <= 9 then x = 7
     else x = 3
-    fi;
+    fi
 finish.
