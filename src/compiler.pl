@@ -2,29 +2,10 @@
 %:- use_rendering(svgtree).
 :- table t/3,t2/3, identifier/3,num/3.
 program(t_p(Tb)) --> block(Tb),['.'].
-run_program(P):- eval_program(P, []).
 
-eval_program(tree(program,[BlockTree,_]), InitialEnv):-
-    eval_block(BlockTree,InitialEnv, _FinalEnv).
-
-%%=======BLOCK========%%
-eval_block(tree(block,[CommandsTree]),InitialEnv, FinalEnv):-
-    eval_commands(CommandsTree,InitialEnv, FinalEnv).
-
-eval_block(tree(block,[DeclarationsTree,CommandsTree]),InitialEnv, FinalEnv):-
-    eval_declarations(DeclarationsTree,InitialEnv, TempEnv),
-    eval_commands(CommandsTree,TempEnv, FinalEnv).
-
-%%=====Declarations====%%
-eval_declarations(tree(declarations,[SingleDeclaration,_]), InitialEnv, FinalEnv):-
-    eval_single_declaration(SingleDeclaration, InitialEnv, FinalEnv).
-
-eval_declarations(tree(declarations,[FirstDeclaration,_|RemDeclaration]), InitialEnv, FinalEnv):-
-    RemDeclaration \= [],
-    eval_single_declaration(FirstDeclaration, InitialEnv, TempEnv),
-    eval_declarations(tree(declarations,RemDeclaration), TempEnv, FinalEnv).
-
-block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
+block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),[';'],['finish'].
+block(t_b(Td)) --> ['start'],declaration(Td),[';'],['finish'].
+block(t_b(Tc)) -->['start'],command(Tc),[';'],['finish'].
 declaration(t_ass_decl(A,D)) --> ass_variable(A),[';'],declaration(D).
 declaration(t_decl_decl(A,D)) --> decl_variable(A),[';'],declaration(D).
 declaration(t_ass_decl(A)) --> ass_variable(A).
@@ -43,26 +24,6 @@ decl_variable(t_decl_variable_int(Tid)) --> ['int'],identifier(Tid).
 decl_variable(t_decl_variable_bool(Tid)) --> ['bool'],identifier(Tid).
 decl_variable(t_decl_variable_st(Tid)) --> ['st'],identifier(Tid).
 
-%%=====Declaration====%%
-eval_single_declaration(tree(declaration,[token(_INT,'int'),token(_I,Identifier),_,token(_N,Val)]), InitialEnv, FinalEnv):-
-	atom_number(Val, NewVal),
-    updateEnv(Identifier,NewVal,InitialEnv,FinalEnv).
-
-eval_single_declaration(tree(declaration,[token(_STRING,'string'),token(_I,Identifier),_,token(_S,Val)]), InitialEnv, FinalEnv):-
-	updateEnv(Identifier,Val,InitialEnv,FinalEnv).
-
-eval_single_declaration(tree(declaration,[token(_BOOL,'bool'),token(_I,Identifier),_,token(_TRUE,Val)]), InitialEnv, FinalEnv):-
-	updateEnv(Identifier,Val,InitialEnv,FinalEnv).
-
-eval_single_declaration(tree(declaration,[token(_INT,'int'),token(_I,Identifier)]), InitialEnv, FinalEnv):-
-	updateEnv(Identifier,0,InitialEnv,FinalEnv).
-
-eval_single_declaration(tree(declaration,[token(_STRING,'string'),token(_I,Identifier)]), InitialEnv, FinalEnv):-
-	updateEnv(Identifier,"",InitialEnv,FinalEnv).
-
-eval_single_declaration(tree(declaration,[token(_BOOL,'bool'),token(_I,Identifier)]), InitialEnv, FinalEnv):-
-	updateEnv(Identifier,true,InitialEnv,FinalEnv).
-
 % CMD ::= NC; CMD | NC
 
 command(t_cmd(Tnc,Tcmd)) --> new_command(Tnc),[';'], command(Tcmd).
@@ -70,6 +31,7 @@ command(t_cmd(Tnc)) --> new_command(Tnc).
 
 % NC ::= I = AE | if BE then CMD else CMD fi | while BE begin CMD end | for( int I = AE; BE ; AE) begin CMD end | for I in range(N,N) begin CMD end | BE? CMD : CMD | print (EXP) 
 
+new_command(t_ncmd(Tid,Tae)) --> ['int'],identifier(Tid),['='],ae(Tae).
 new_command(t_ncmd(Tid,Tae)) --> identifier(Tid),['='],ae(Tae).
 new_command(t_ncmd_if(Tbe,Tcmd,Tcmd1)) --> ['if'],be(Tbe),['then'],command(Tcmd),['else'],command(Tcmd1),['fi'].
 new_command(t_ncmd_while(Tbe,Tcmd)) --> ['while'],be(Tbe),['begin'],command(Tcmd),['end'].
@@ -172,7 +134,9 @@ program_eval(t_p(A),EnvOut) :- block_eval(A,[],EnvOut).
 
 % block(t_b(Td,Tc)) --> ['start'],declaration(Td),[';'],command(Tc),['finish'].
 
-block_eval(t_b(Td,Tc),Env,Env1) :- declaration_eval(Td,Env,ImdEnv),command_eval(Tc,ImdEnv,Env1). 
+block_eval(t_b(Td,Tc),Env,Env1) :- declaration_eval(Td,Env,ImdEnv),command_eval(Tc,ImdEnv,Env1).
+block_eval(t_b(Td),Env,Env1) :- declaration_eval(Td,Env,Env1).
+block_eval(t_b(Tc),Env,Env1) :- command_eval(Tc,Env,Env1).
 
 
 % declaration(t_ass_decl(A,D)) --> ass_variable(A),[';'],declaration(D).
@@ -305,10 +269,10 @@ check_bool_greater_than(A,B,true):- A > B.
 check_bool_greater_than(A,B,false):- A =< B.
 
 check_bool_lteq(A,B,true):-A =< B.
-check_bool_lteq(A,B,false):-A >= B.
+check_bool_lteq(A,B,false):-A > B.
 
 check_bool_gteq(A,B,true):-A >= B.
-check_bool_gteq(A,B,false):-A =< B.
+check_bool_gteq(A,B,false):-A < B.
 
 % ae(t_ae(ID,T))--> identifier(ID),['='],t(T).
 % ae(T)--> t(T).
