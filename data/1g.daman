@@ -1,0 +1,6 @@
+start
+    int x = 7 ;
+    int y=8;
+    int z=x+y;
+    print(z);
+finish.
