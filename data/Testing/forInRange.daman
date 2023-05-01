@@ -1,8 +1,0 @@
-start
-    int a = 1;
-    for x in range(1,11)
-        begin 
-            int y = x * 2;
-            print("2 x " x " = " y)
-        end
-finish .

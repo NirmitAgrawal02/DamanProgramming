@@ -1,8 +1,0 @@
-start
-int x  = 4 ;
-while y <= x
-    begin
-        print ( y )
-        y = y + 1
-    end
-finish
