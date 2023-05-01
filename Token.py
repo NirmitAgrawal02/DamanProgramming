@@ -45,7 +45,7 @@ def get_tokens(file):
 
 def evaluator(tok):
     # print("Tok")
-    print(tok)
+    # print(tok)
     prolog.consult("src/compiler.pl")
     res = ""
     for sol in prolog.query("program(P,"+tok+",[])."):
